@@ -12,7 +12,7 @@ document.write(`<!-- JSON-LD: Organization -->
     "containedInPlace": { "@type": "Country", "name": "Australia" }
   }
 }
-</script>
+<\/script>
 
 <!-- JSON-LD: WebApplication (Calculator) -->
 <script type="application/ld+json">
@@ -42,7 +42,7 @@ document.write(`<!-- JSON-LD: Organization -->
     "name": "Switch to Electric Vic"
   }
 }
-</script>
+<\/script>
 
 <!-- JSON-LD: FAQPage -->
 <script type="application/ld+json">
@@ -116,7 +116,7 @@ document.write(`<!-- JSON-LD: Organization -->
     }
   ]
 }
-</script>
+<\/script>
 
 <!-- JSON-LD: HowTo (Calculator Steps) -->
 <script type="application/ld+json">
@@ -124,7 +124,7 @@ document.write(`<!-- JSON-LD: Organization -->
   "@context": "https://schema.org",
   "@type": "HowTo",
   "name": "How to Check Your Victorian Electrification Compliance and Calculate Rebates",
-  "description": "Use the free Switch to Electric Vic calculator to check if your home complies with Victoria's new electrification rules, estimate upgrade costs after rebates, and connect with verified local installers.",
+  "description": "Use the free Switch to Electric Vic calculator to check if your property complies with Victoria's new electrification rules, estimate upgrade costs after rebates, and connect with verified local installers.",
   "totalTime": "PT1M",
   "step": [
     {
@@ -149,6 +149,6 @@ document.write(`<!-- JSON-LD: Organization -->
     }
   ]
 }
-</script>
+<\/script>
 
 `);

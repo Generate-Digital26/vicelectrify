@@ -39,7 +39,7 @@
 <nav>
   <div class="nav-inner">
     <div class="nav-logo" @click="page='home'; window.scrollTo(0,0)">
-      <span>⚡</span> Switch to Electric Vic
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="display:inline;vertical-align:middle;"><path d="M11 2L4 11h5l-2 7 7-9h-5l2-7z" fill="#0f766e"/></svg> Switch to Electric Vic
     </div>
     <div class="nav-links">
       <button @click="page='homeowner'; window.scrollTo(0,0)">Homeowner Rules</button>
@@ -69,17 +69,12 @@
     <div class="container" style="text-align:center;">
       <div class="hero-content" style="max-width:720px; margin:0 auto;">
         <div class="badge badge-green" style="margin-bottom:16px">New Victorian Rules in Effect</div>
-        <h1>Victoria's gas rules are changing. Is your home ready?</h1>
+        <h1>Victoria's gas rules are changing. Is your property ready?</h1>
         <p>Check your compliance, see what upgrades you need, what they'll cost after rebates, and how much you'll save — all in under 2 minutes.</p>
         <div style="margin-top:28px;">
           <button class="btn btn-primary btn-lg" @click="document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth' })" style="background:var(--white); color:var(--green-800);">
-            Check My Home Free ↓
+            Check My Property Free ↓
           </button>
-        </div>
-        <div class="hero-stats" style="margin-top:40px; justify-content:center; border-top:1px solid rgba(255,255,255,0.15); padding-top:24px;">
-          <div class="hero-stat"><span class="num">$2,030</span><span class="label">Max Hot Water Rebates</span></div>
-          <div class="hero-stat"><span class="num">Mar 2027</span><span class="label">Rental Deadline</span></div>
-          <div class="hero-stat"><span class="num">3.7 yrs</span><span class="label">Avg Payback</span></div>
         </div>
       </div>
     </div>
@@ -89,14 +84,14 @@
   <section id="calculator-section" style="background: var(--slate-50); padding: 64px 0;">
     <div class="calc-wrapper">
       <div style="text-align:center; margin-bottom:36px;">
-        <h2 style="font-size:1.8rem;">Check Your Home</h2>
+        <h2 style="font-size:1.8rem;">Check Your Property</h2>
         <p style="color:var(--slate-500);">Answer a few questions about your property and current setup.</p>
       </div>
 
-      <!-- Step 1: Property & Energy (combined) -->
+      <!-- Step 1: Property Details -->
       <div class="calc-card" x-show="calcStep === 1">
-        <h3 style="font-size:1.3rem; margin-bottom:4px;">Your Property & Energy Setup</h3>
-        <p class="subtitle">Tell us about your existing setup — takes under 2 minutes.</p>
+        <h3 style="font-size:1.3rem; margin-bottom:4px;">Step 1: Your Property</h3>
+        <p class="subtitle">Tell us about your property so we can check which rules apply.</p>
 
         <div class="form-group">
           <label class="form-label">I am a…</label>
@@ -106,34 +101,13 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Current Hot Water System</label>
-            <div class="option-group">
-              <button class="option-pill" :class="{ selected: calc.hotWater === 'gas_storage' }" @click="calc.hotWater = 'gas_storage'">Gas</button>
-              <button class="option-pill" :class="{ selected: calc.hotWater === 'electric' }" @click="calc.hotWater = 'electric'">Electric</button>
-              <button class="option-pill" :class="{ selected: calc.hotWater === 'heat_pump' }" @click="calc.hotWater = 'heat_pump'">Heat Pump</button>
-              <button class="option-pill" :class="{ selected: calc.hotWater === 'unknown' }" @click="calc.hotWater = 'unknown'">Not Sure</button>
-              <button class="option-pill" :class="{ selected: calc.hotWater === 'na' }" @click="calc.hotWater = 'na'">N/A</button>
-            </div>
+          <label class="form-label">Property Type</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.propType === 'house' }" @click="calc.propType = 'house'">House</button>
+            <button class="option-pill" :class="{ selected: calc.propType === 'townhouse' }" @click="calc.propType = 'townhouse'">Townhouse</button>
+            <button class="option-pill" :class="{ selected: calc.propType === 'unit' }" @click="calc.propType = 'unit'">Unit / Apartment</button>
           </div>
-          <div class="form-group">
-            <label class="form-label">Current Heating</label>
-            <div class="option-group">
-              <button class="option-pill" :class="{ selected: calc.heating === 'gas_ducted' }" @click="calc.heating = 'gas_ducted'">Gas Ducted</button>
-              <button class="option-pill" :class="{ selected: calc.heating === 'gas_wall' }" @click="calc.heating = 'gas_wall'">Gas Heater</button>
-              <button class="option-pill" :class="{ selected: calc.heating === 'rc_ac' }" @click="calc.heating = 'rc_ac'">Reverse Cycle</button>
-              <button class="option-pill" :class="{ selected: calc.heating === 'unknown' }" @click="calc.heating = 'unknown'">Not Sure</button>
-              <button class="option-pill" :class="{ selected: calc.heating === 'na' }" @click="calc.heating = 'na'">N/A</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Current Cooktop</label>
-            <div class="option-group">
-              <button class="option-pill" :class="{ selected: calc.cooktop === 'gas' }" @click="calc.cooktop = 'gas'">Gas</button>
-              <button class="option-pill" :class="{ selected: calc.cooktop === 'electric' }" @click="calc.cooktop = 'electric'">Electric</button>
-              <button class="option-pill" :class="{ selected: calc.cooktop === 'induction' }" @click="calc.cooktop = 'induction'">Induction</button>
-              <button class="option-pill" :class="{ selected: calc.cooktop === 'na' }" @click="calc.cooktop = 'na'">N/A</button>
-            </div>
-          </div>
+        </div>
         <div class="form-group">
           <label class="form-label">Property Age</label>
           <div class="option-group">
@@ -144,144 +118,332 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="form-label">Bedrooms</label>
+          <div class="option-group">
+            <template x-for="n in ['1','2','3','4','5+']" :key="n">
+              <button class="option-pill" :class="{ selected: calc.bedrooms === n }" @click="calc.bedrooms = n" x-text="n"></button>
+            </template>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="form-label">Suburb or Postcode</label>
           <input type="text" class="form-input" placeholder="e.g. Brunswick, 3056" x-model="calc.suburb">
         </div>
 
         <div style="text-align:right; margin-top:28px;">
-          <button class="btn btn-primary btn-lg" @click="computeResults(); calcStep = 2; document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth' })" :disabled="!calc.ownership || !calc.hotWater || !calc.heating">
+          <button class="btn btn-primary btn-lg" @click="calcStep = 2; document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth' })" :disabled="!calc.ownership || !calc.propType">
+            Next: Energy Setup →
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Current Energy Setup -->
+      <div class="calc-card" x-show="calcStep === 2">
+        <h3 style="font-size:1.3rem; margin-bottom:4px;">Step 2: Your Current Energy Setup</h3>
+        <p class="subtitle">What systems does your property currently use?</p>
+
+        <div class="form-group">
+          <label class="form-label">Current Hot Water System</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'gas_storage' }" @click="calc.hotWater = 'gas_storage'">Gas Storage</button>
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'gas_instant' }" @click="calc.hotWater = 'gas_instant'">Gas Instantaneous</button>
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'electric' }" @click="calc.hotWater = 'electric'">Electric Storage</button>
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'heat_pump' }" @click="calc.hotWater = 'heat_pump'">Heat Pump</button>
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'solar_hw' }" @click="calc.hotWater = 'solar_hw'">Solar</button>
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'unknown' }" @click="calc.hotWater = 'unknown'">Not Sure</button>
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'na' }" @click="calc.hotWater = 'na'">N/A</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Current Heating</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.heating === 'gas_ducted' }" @click="calc.heating = 'gas_ducted'">Gas Ducted</button>
+            <button class="option-pill" :class="{ selected: calc.heating === 'gas_wall' }" @click="calc.heating = 'gas_wall'">Gas Wall Heater</button>
+            <button class="option-pill" :class="{ selected: calc.heating === 'rc_ac' }" @click="calc.heating = 'rc_ac'">Reverse Cycle AC</button>
+            <button class="option-pill" :class="{ selected: calc.heating === 'electric_heater' }" @click="calc.heating = 'electric_heater'">Electric Heater</button>
+            <button class="option-pill" :class="{ selected: calc.heating === 'wood' }" @click="calc.heating = 'wood'">Wood</button>
+            <button class="option-pill" :class="{ selected: calc.heating === 'unknown' }" @click="calc.heating = 'unknown'">Not Sure</button>
+            <button class="option-pill" :class="{ selected: calc.heating === 'na' }" @click="calc.heating = 'na'">N/A</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Current Cooktop</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.cooktop === 'gas' }" @click="calc.cooktop = 'gas'">Gas</button>
+            <button class="option-pill" :class="{ selected: calc.cooktop === 'electric' }" @click="calc.cooktop = 'electric'">Electric</button>
+            <button class="option-pill" :class="{ selected: calc.cooktop === 'induction' }" @click="calc.cooktop = 'induction'">Induction</button>
+            <button class="option-pill" :class="{ selected: calc.cooktop === 'na' }" @click="calc.cooktop = 'na'">N/A</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Solar Panels</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.solar === 'yes' }" @click="calc.solar = 'yes'">Yes</button>
+            <button class="option-pill" :class="{ selected: calc.solar === 'no' }" @click="calc.solar = 'no'">No</button>
+            <button class="option-pill" :class="{ selected: calc.solar === 'unknown' }" @click="calc.solar = 'unknown'">Not Sure</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Battery Storage</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.battery === 'yes' }" @click="calc.battery = 'yes'">Yes</button>
+            <button class="option-pill" :class="{ selected: calc.battery === 'no' }" @click="calc.battery = 'no'">No</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Approximate Quarterly Energy Bill</label>
+          <div class="range-wrap">
+            <div class="range-value" x-text="'$' + calc.bill"></div>
+            <input type="range" min="100" max="1500" step="50" x-model.number="calc.bill">
+            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--slate-500); margin-top:4px;">
+              <span>$100</span><span>$1,500+</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; margin-top:28px;">
+          <button class="btn btn-secondary" @click="calcStep = 1; document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth' })">← Back</button>
+          <button class="btn btn-primary btn-lg" @click="computeResults(); calcStep = 3; document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth' })">
             See My Results →
           </button>
         </div>
       </div>
 
-      <!-- Step 2: Results (Compliance + Upgrades + Summary) -->
-      <div class="calc-card" x-show="calcStep === 2">
-        <h3 style="font-size:1.3rem; margin-bottom:20px;">Your Results</h3>
+      <!-- Step 3: Personalised Report -->
+      <div x-show="calcStep === 3" style="max-width:760px; margin:0 auto;">
 
-        <!-- Compliance -->
-        <template x-if="results.compliance === 'compliant'">
-          <div class="compliance-status green">
-            <div class="compliance-icon">✅</div>
-            <div><h3>You're Compliant</h3><p>Your home meets current electrification requirements. You may still save money with the upgrades below.</p></div>
-          </div>
-        </template>
-        <template x-if="results.compliance === 'action_needed'">
-          <div class="compliance-status amber">
-            <div class="compliance-icon">⚠️</div>
-            <div><h3>Action Needed</h3><p x-text="results.complianceMsg"></p></div>
-          </div>
-        </template>
-        <template x-if="results.compliance === 'non_compliant'">
-          <div class="compliance-status red">
-            <div class="compliance-icon">❌</div>
-            <div><h3>Non-Compliant — Action Required</h3><p x-text="results.complianceMsg"></p></div>
-          </div>
-        </template>
+        <!-- Report Header -->
+        <div style="text-align:center; margin-bottom:28px;">
+          <div class="badge badge-green" style="margin-bottom:8px;">Your Personalised Report</div>
+          <h2 style="font-size:1.6rem; margin-bottom:4px;">Electrification Report</h2>
+          <p style="color:var(--slate-500); font-size:0.9rem;" x-text="(calc.suburb || 'Your property') + ' · ' + (calc.ownership === 'landlord' ? 'Rental Property' : 'Owner-Occupied') + ' · ' + (calc.propType === 'house' ? 'House' : calc.propType === 'townhouse' ? 'Townhouse' : 'Unit') + ' · ' + (calc.propAge === 'pre1990' ? 'Pre-1990' : calc.propAge === '1990-2010' ? '1990–2010' : calc.propAge === '2010-2020' ? '2010–2020' : 'Post-2020')"></p>
+        </div>
 
-        <template x-if="calc.ownership === 'landlord'">
-          <div class="callout callout-red" style="margin-bottom:20px;">
-            <div class="callout-icon">⚖️</div>
-            <div><h4>Landlord Alert</h4><p>Advertising a non-compliant rental is a <strong>criminal offence</strong> since Nov 2025. Full MEES compliance required by <strong>1 March 2027</strong>.</p></div>
-          </div>
-        </template>
+        <!-- Section 1: Compliance Status -->
+        <div class="calc-card" style="margin-bottom:20px;">
+          <h3 style="font-size:1.1rem; margin-bottom:14px; color:var(--slate-500); text-transform:uppercase; letter-spacing:0.05em; font-weight:600; font-family:var(--font-body); font-size:0.75rem;">Compliance Status</h3>
+          <template x-if="results.compliance === 'compliant'">
+            <div class="compliance-status green"><div class="compliance-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/><path d="M9 14l3.5 3.5L19 11" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>Compliant</h3><p>Your property meets Victoria's current electrification requirements. The upgrades below are optional but can save you money.</p></div></div>
+          </template>
+          <template x-if="results.compliance === 'action_needed'">
+            <div class="compliance-status amber"><div class="compliance-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3L2 25h24L14 3z" fill="#fffbeb" stroke="#d97706" stroke-width="2" stroke-linejoin="round"/><path d="M14 11v6M14 20v1" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/></svg></div><div><h3>Action Needed</h3><p x-text="results.complianceMsg"></p></div></div>
+          </template>
+          <template x-if="results.compliance === 'non_compliant'">
+            <div class="compliance-status red"><div class="compliance-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/><path d="M10 10l8 8M18 10l-8 8" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/></svg></div><div><h3>Non-Compliant — Action Required</h3><p x-text="results.complianceMsg"></p></div></div>
+          </template>
 
-        <!-- Summary Cards -->
-        <template x-if="results.upgrades.length > 0">
-        <div>
-          <div class="summary-totals" style="margin-bottom:24px;">
-            <div class="summary-box"><span class="num" x-text="'$' + results.totalGross.toLocaleString()"></span><span class="label">Total Upgrade Cost</span></div>
-            <div class="summary-box highlight"><span class="num" x-text="'-$' + results.totalRebate.toLocaleString()"></span><span class="label">Available Rebates</span></div>
-            <div class="summary-box highlight"><span class="num" x-text="'$' + results.totalNet.toLocaleString()"></span><span class="label">Your Net Cost</span></div>
-            <div class="summary-box"><span class="num" x-text="'$' + results.totalSaving.toLocaleString() + '/yr'"></span><span class="label">Annual Savings</span></div>
-          </div>
-          <div style="background:var(--slate-50); border-radius:var(--radius); padding:20px; margin-bottom:24px;">
-            <h4 style="font-size:1rem; margin-bottom:12px;">Recommended Upgrades</h4>
-            <template x-for="u in results.upgrades" :key="u.name">
-              <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--slate-200); flex-wrap:wrap; gap:8px;">
-                <div>
-                  <div style="font-weight:600; color:var(--slate-900);" x-text="u.name"></div>
-                  <div style="font-size:0.8rem; color:var(--slate-500);" x-text="u.desc"></div>
-                  <template x-if="u.priority === 'compliance'"><span class="badge badge-red" style="margin-top:4px;">Compliance Required</span></template>
+          <!-- Deadlines Timeline -->
+          <div style="margin-top:16px; padding-top:16px; border-top:1px solid var(--slate-200);">
+            <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--slate-500); margin-bottom:12px; font-family:var(--font-body); font-weight:600;">Key Deadlines for You</h4>
+            <template x-if="calc.ownership === 'landlord'">
+              <div>
+                <div style="display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--slate-100);">
+                  <span class="badge badge-red" style="flex-shrink:0;">NOW</span>
+                  <div style="font-size:0.85rem;"><strong>Advertising compliance</strong> — Advertising a non-compliant rental is already a criminal offence (since Nov 2025)</div>
                 </div>
-                <div style="text-align:right; flex-shrink:0;">
-                  <div><span class="cost-strike" x-text="'$' + u.gross.toLocaleString()"></span> → <span class="cost-net" x-text="'$' + u.net.toLocaleString()"></span></div>
-                  <div style="font-size:0.8rem; color:var(--green-700);" x-text="'Saves $' + u.saving.toLocaleString() + '/yr'"></div>
+                <div style="display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--slate-100);">
+                  <span class="badge badge-amber" style="flex-shrink:0;">MAR 2027</span>
+                  <div style="font-size:0.85rem;"><strong>MEES compliance</strong> — All rental properties must meet minimum energy efficiency standards</div>
+                </div>
+                <div style="display:flex; gap:12px; padding:10px 0;">
+                  <span class="badge badge-green" style="flex-shrink:0;">ONGOING</span>
+                  <div style="font-size:0.85rem;"><strong>End-of-life replacement</strong> — Gas heating AND hot water must be replaced with electric when they fail</div>
+                </div>
+              </div>
+            </template>
+            <template x-if="calc.ownership !== 'landlord'">
+              <div>
+                <div style="display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--slate-100);">
+                  <span class="badge badge-amber" style="flex-shrink:0;">ONGOING</span>
+                  <div style="font-size:0.85rem;"><strong>End-of-life replacement</strong> — Gas hot water must be replaced with electric (e.g. heat pump) when it fails. You cannot install a new gas hot water system.</div>
+                </div>
+                <div style="display:flex; gap:12px; padding:10px 0;">
+                  <span class="badge badge-green" style="flex-shrink:0;">OPTIONAL</span>
+                  <div style="font-size:0.85rem;"><strong>Gas heating & cooktop</strong> — Not currently mandated for owner-occupiers, but switching saves ~$400–$700/year</div>
                 </div>
               </div>
             </template>
           </div>
         </div>
+
+        <!-- Section 2: Before/After Energy Costs -->
+        <div class="calc-card" style="margin-bottom:20px;">
+          <h3 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--slate-500); margin-bottom:16px; font-family:var(--font-body); font-weight:600;">Annual Energy Cost Comparison</h3>
+          <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:16px; align-items:center;">
+            <div style="text-align:center; padding:20px; background:var(--red-50); border-radius:var(--radius-sm); border:1px solid var(--red-100);">
+              <div style="font-size:0.75rem; font-weight:600; color:var(--red-600); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;">Current Setup</div>
+              <div style="font-family:var(--font-display); font-size:2rem; color:var(--slate-900);" x-text="'~$' + (calc.bill * 4).toLocaleString()"></div>
+              <div style="font-size:0.8rem; color:var(--slate-500);">per year</div>
+            </div>
+            <div style="font-size:1.5rem; color:var(--green-600);">→</div>
+            <div style="text-align:center; padding:20px; background:var(--green-50); border-radius:var(--radius-sm); border:1px solid var(--green-400);">
+              <div style="font-size:0.75rem; font-weight:600; color:var(--green-700); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;">After Electrification</div>
+              <div style="font-family:var(--font-display); font-size:2rem; color:var(--green-800);" x-text="'~$' + Math.max(0, (calc.bill * 4) - results.totalSaving).toLocaleString()"></div>
+              <div style="font-size:0.8rem; color:var(--slate-500);">per year</div>
+            </div>
+          </div>
+          <div style="text-align:center; margin-top:16px; padding:12px; background:var(--green-50); border-radius:var(--radius-sm);">
+            <span style="font-weight:700; color:var(--green-800); font-size:1.1rem;" x-text="'You could save ~$' + results.totalSaving.toLocaleString() + ' per year'"></span>
+            <span style="color:var(--slate-500); font-size:0.85rem;"> on energy bills</span>
+          </div>
+        </div>
+
+        <!-- Section 3: Itemised Upgrade Recommendations -->
+        <template x-if="results.upgrades.length > 0">
+        <div class="calc-card" style="margin-bottom:20px;">
+          <h3 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--slate-500); margin-bottom:16px; font-family:var(--font-body); font-weight:600;">Recommended Upgrades</h3>
+
+          <template x-for="(u, idx) in results.upgrades" :key="u.name">
+            <div style="padding:20px; border:1px solid var(--slate-200); border-radius:var(--radius-sm); margin-bottom:12px;" :style="u.priority === 'compliance' ? 'border-left:4px solid var(--red-600);' : 'border-left:4px solid var(--green-500);'">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+                <div>
+                  <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                    <span style="font-weight:700; color:var(--slate-900); font-size:1.05rem;" x-text="u.name"></span>
+                    <template x-if="u.priority === 'compliance'"><span class="badge badge-red">Required</span></template>
+                    <template x-if="u.priority === 'recommended'"><span class="badge badge-green">Recommended</span></template>
+                    <template x-if="u.priority === 'optional'"><span class="badge badge-amber">Optional</span></template>
+                  </div>
+                  <div style="font-size:0.85rem; color:var(--slate-500); margin-bottom:12px;" x-text="u.desc"></div>
+                </div>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; text-align:center;">
+                <div style="background:var(--slate-50); padding:10px 8px; border-radius:var(--radius-sm);">
+                  <div style="font-size:0.65rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--slate-500); margin-bottom:2px;">Cost</div>
+                  <div style="font-weight:700; color:var(--slate-900);" x-text="'~$' + u.gross.toLocaleString()"></div>
+                </div>
+                <div style="background:var(--green-50); padding:10px 8px; border-radius:var(--radius-sm);">
+                  <div style="font-size:0.65rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--green-700); margin-bottom:2px;">Rebates</div>
+                  <div style="font-weight:700; color:var(--green-700);" x-text="'~-$' + u.rebate.toLocaleString()"></div>
+                </div>
+                <div style="background:var(--green-50); padding:10px 8px; border-radius:var(--radius-sm); border:1px solid var(--green-400);">
+                  <div style="font-size:0.65rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--green-800); margin-bottom:2px;">You Pay</div>
+                  <div style="font-weight:700; color:var(--green-800);" x-text="'~$' + u.net.toLocaleString()"></div>
+                </div>
+                <div style="background:var(--slate-50); padding:10px 8px; border-radius:var(--radius-sm);">
+                  <div style="font-size:0.65rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--slate-500); margin-bottom:2px;">Payback</div>
+                  <div style="font-weight:700; color:var(--slate-900);" x-text="'~' + u.payback + ' yrs'"></div>
+                </div>
+              </div>
+              <div style="margin-top:8px; font-size:0.8rem; color:var(--green-700); font-weight:600;" x-text="'Saves ~$' + u.saving.toLocaleString() + ' per year on energy bills'"></div>
+            </div>
+          </template>
+        </div>
         </template>
 
         <template x-if="results.upgrades.length === 0">
-          <div class="callout callout-green" style="margin-bottom:24px;"><div class="callout-icon">🎉</div><div><h4>Looking good!</h4><p>Your home is already well set up. Consider solar or a battery to further reduce bills.</p></div></div>
+          <div class="calc-card" style="margin-bottom:20px;">
+            <div class="callout callout-green"><div class="callout-icon"><svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#f0fdfa" stroke="#0f766e" stroke-width="3"/><path d="M18 28l7 7L38 21" stroke="#0f766e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h4>Your property is already well set up!</h4><p>You're ahead of the curve. Consider solar or a battery to further reduce your bills and increase your property value.</p></div></div>
+          </div>
         </template>
 
-        <div style="display:flex; gap:12px; justify-content:space-between; margin-top:24px;">
-          <button class="btn btn-secondary" @click="calcStep = 1; document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth' })">← Change Answers</button>
-          <button class="btn btn-primary btn-lg" @click="calcStep = 3; document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth' })">Get Free Quotes →</button>
+        <!-- Section 4: Total Investment Summary -->
+        <template x-if="results.upgrades.length > 0">
+        <div class="calc-card" style="margin-bottom:20px;">
+          <h3 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--slate-500); margin-bottom:16px; font-family:var(--font-body); font-weight:600;">Investment Summary</h3>
+          <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;">
+            <div class="summary-box"><span class="num" x-text="'~$' + results.totalGross.toLocaleString()"></span><span class="label">Total Before Rebates</span></div>
+            <div class="summary-box highlight"><span class="num" x-text="'~-$' + results.totalRebate.toLocaleString()"></span><span class="label">Government Rebates & Incentives</span></div>
+            <div class="summary-box highlight" style="border:2px solid var(--green-500);"><span class="num" x-text="'~$' + results.totalNet.toLocaleString()"></span><span class="label">Your Total Out-of-Pocket</span></div>
+            <div class="summary-box"><span class="num" x-text="'~' + results.totalPayback + ' yrs'"></span><span class="label">Payback Period</span></div>
+          </div>
+          <template x-if="calc.ownership === 'landlord'">
+            <div style="margin-top:16px; padding:14px; background:var(--amber-50); border-radius:var(--radius-sm); border:1px solid var(--amber-100); font-size:0.85rem;">
+              <strong>Rental yield impact:</strong> Energy-efficient rentals command 3–5% higher rents and attract better tenants. These upgrades protect your rental income and avoid penalties up to ~$61,053.
+            </div>
+          </template>
+        </div>
+        </template>
+
+        <!-- Actions -->
+        <div style="display:flex; gap:12px; justify-content:space-between;">
+          <button class="btn btn-secondary" @click="calcStep = 2; document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth' })">← Change Answers</button>
+          <button class="btn btn-primary btn-lg" @click="calcStep = 4; document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth' })">Get Free Report →</button>
         </div>
       </div>
 
-      <!-- Step 3: Lead Capture -->
-      <div class="calc-card" x-show="calcStep === 3 && !homeLeadSubmitted">
-        <h3 style="font-size:1.3rem; margin-bottom:4px;">Take the Next Step</h3>
-        <p class="subtitle">Choose one or both — it's free, no obligation.</p>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px;" class="lead-options-grid">
-          <div class="card" :class="{ 'card-green': homeLead.wantReport }" style="cursor:pointer; padding:20px;" @click="homeLead.wantReport = !homeLead.wantReport">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-              <div style="width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem;" :style="homeLead.wantReport ? 'background:var(--green-600); color:white;' : 'background:var(--slate-100);'"><span x-text="homeLead.wantReport ? '✓' : '📧'"></span></div>
-              <h4 style="font-size:1rem; margin:0;">Email Me a Report</h4>
-            </div>
-            <p style="font-size:0.85rem; color:var(--slate-500); margin:0;">Personalised PDF with compliance status, rebates, costs, and action plan.</p>
-          </div>
-          <div class="card" :class="{ 'card-green': homeLead.wantQuotes }" style="cursor:pointer; padding:20px;" @click="homeLead.wantQuotes = !homeLead.wantQuotes">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-              <div style="width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem;" :style="homeLead.wantQuotes ? 'background:var(--green-600); color:white;' : 'background:var(--slate-100);'"><span x-text="homeLead.wantQuotes ? '✓' : '🔧'"></span></div>
-              <h4 style="font-size:1rem; margin:0;">Connect Me with Installers</h4>
-            </div>
-            <p style="font-size:0.85rem; color:var(--slate-500); margin:0;">Free quotes from up to 3 verified local businesses. No spam.</p>
-          </div>
+      <!-- Step 4a: Get Your Report (low friction — name + email only) -->
+      <div class="calc-card" x-show="calcStep === 4 && !homeLeadSubmitted">
+        <div style="text-align:center; margin-bottom:24px;">
+          <div style="margin-bottom:8px; display:flex; justify-content:center;"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="12" width="36" height="24" rx="3" stroke="#0f766e" stroke-width="2.5" fill="none"/><path d="M6 15l18 12 18-12" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 style="font-size:1.4rem; margin-bottom:6px;">Get Your Full Report — Free</h3>
+          <p style="color:var(--slate-500); font-size:0.95rem; max-width:440px; margin:0 auto;">We'll email you a detailed PDF with your complete compliance status, all available rebates, upgrade costs, savings projections, and a step-by-step action plan.</p>
         </div>
 
-        <div x-show="homeLead.wantReport || homeLead.wantQuotes" x-transition>
-          <div class="form-row" style="margin-bottom:16px;">
-            <div class="form-group"><label class="form-label">Full Name</label><input type="text" class="form-input" placeholder="Jane Smith" x-model="homeLead.name"></div>
-            <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="jane@example.com" x-model="homeLead.email"></div>
+        <div style="max-width:400px; margin:0 auto;">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" placeholder="Jane Smith" x-model="homeLead.name">
           </div>
-          <div class="form-row" style="margin-bottom:16px;">
-            <div class="form-group" x-show="homeLead.wantQuotes"><label class="form-label">Phone</label><input type="tel" class="form-input" placeholder="04XX XXX XXX" x-model="homeLead.phone"></div>
-            <div class="form-group" x-show="homeLead.wantQuotes">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="jane@example.com" x-model="homeLead.email">
+          </div>
+          <button class="btn btn-primary btn-lg btn-block" @click="homeLead.wantReport = true; submitLead().then(() => {})" :disabled="!homeLead.name || !homeLead.email || submitting">
+            <span x-show="!submitting">Send My Free Report →</span>
+            <span x-show="submitting">Sending…</span>
+          </button>
+          <p x-show="submitError" style="color:var(--red-600); font-size:0.9rem; margin-top:8px; text-align:center;" x-text="submitError"></p>
+          <p class="privacy-note" style="text-align:center;"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:3px;"><rect x="2" y="6" width="10" height="7" rx="1.5" stroke="#64748b" stroke-width="1.2"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6" stroke="#64748b" stroke-width="1.2"/></svg>Email only used for your report — no spam, ever.</p>
+        </div>
+
+        <div style="margin-top:20px; text-align:center;">
+          <button style="background:none; border:none; color:var(--green-700); font-weight:600; font-size:0.85rem; cursor:pointer;" @click="calcStep = 3; document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth' })">← Back to Results</button>
+        </div>
+      </div>
+
+      <!-- Step 4b: Upsell — Connect with Installers (shown after report submitted) -->
+      <div class="calc-card" x-show="calcStep === 4 && homeLeadSubmitted && !homeLead.wantQuotes">
+        <div style="text-align:center; margin-bottom:8px;">
+          <div style="display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:var(--green-100); margin-bottom:8px;">
+            <span style="font-size:1.5rem;">✓</span>
+          </div>
+          <h3 style="font-size:1.2rem; margin-bottom:4px;">Report Sent!</h3>
+          <p style="color:var(--slate-500); font-size:0.9rem;">Check your inbox at <strong x-text="homeLead.email"></strong></p>
+        </div>
+
+        <div style="margin:24px 0; padding:24px; background:var(--green-50); border:2px solid var(--green-400); border-radius:var(--radius);">
+          <div style="text-align:center; margin-bottom:16px;">
+            <div style="margin-bottom:8px; display:flex; justify-content:center;"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="15" cy="14" r="5" stroke="#0f766e" stroke-width="2"/><circle cx="27" cy="14" r="5" stroke="#0f766e" stroke-width="2"/><path d="M6 34c0-5 4-9 9-9h4c5 0 9 4 9 9" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <h3 style="font-size:1.2rem; margin-bottom:6px;">Want to take action?</h3>
+            <p style="color:var(--slate-500); font-size:0.9rem; max-width:400px; margin:0 auto;">Get free quotes from up to 3 verified local installers who specialise in exactly what you need. No lead flooding — maximum 3 per service type.</p>
+          </div>
+          <div style="max-width:400px; margin:0 auto;">
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="tel" class="form-input" placeholder="04XX XXX XXX" x-model="homeLead.phone">
+            </div>
+            <div class="form-group">
               <label class="form-label">Timeline</label>
-              <div class="option-group">
+              <div class="option-group" style="justify-content:center;">
                 <button class="option-pill" :class="{ selected: homeLead.timeline === 'now' }" @click="homeLead.timeline = 'now'" style="font-size:0.85rem;">Ready Now</button>
                 <button class="option-pill" :class="{ selected: homeLead.timeline === '3months' }" @click="homeLead.timeline = '3months'" style="font-size:0.85rem;">3 Months</button>
                 <button class="option-pill" :class="{ selected: homeLead.timeline === '12months' }" @click="homeLead.timeline = '12months'" style="font-size:0.85rem;">12 Months</button>
-                <button class="option-pill" :class="{ selected: homeLead.timeline === 'research' }" @click="homeLead.timeline = 'research'" style="font-size:0.85rem;">Researching</button>
               </div>
             </div>
+            <button class="btn btn-primary btn-lg btn-block" @click="homeLead.wantQuotes = true; submitLead()" :disabled="!homeLead.phone || submitting">
+              <span x-show="!submitting">Connect Me with Installers →</span>
+              <span x-show="submitting">Submitting…</span>
+            </button>
+            <p class="privacy-note" style="text-align:center;"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:3px;"><rect x="2" y="6" width="10" height="7" rx="1.5" stroke="#64748b" stroke-width="1.2"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6" stroke="#64748b" stroke-width="1.2"/></svg>Details shared with max 3 matched businesses — never sold.</p>
           </div>
-          <button class="btn btn-primary btn-lg btn-block" @click="submitLead()" :disabled="!homeLead.name || !homeLead.email || (homeLead.wantQuotes && !homeLead.phone) || submitting">
-            <span x-show="!submitting" x-text="homeLead.wantReport && homeLead.wantQuotes ? 'Send Report & Get Quotes →' : homeLead.wantReport ? 'Send My Free Report →' : 'Get Up to 3 Free Quotes →'"></span>
-            <span x-show="submitting">Submitting…</span>
-          </button>
-          <p x-show="submitError" style="color:var(--red-600); font-size:0.9rem; margin-top:8px; text-align:center;" x-text="submitError"></p>
-          <p class="privacy-note">🔒 <strong>Your privacy matters.</strong> <span x-text="homeLead.wantQuotes ? 'Details shared with max 3 matched businesses per service — never sold.' : 'Email only used for your report — no spam.'"></span></p>
         </div>
 
-        <div style="margin-top:16px;"><button class="btn btn-secondary" @click="calcStep = 2; document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth' })">← Back to Results</button></div>
+        <div style="text-align:center;">
+          <button style="background:none; border:none; color:var(--slate-500); font-size:0.85rem; cursor:pointer;" @click="calcStep = 5">No thanks — I have my report</button>
+        </div>
       </div>
 
-      <!-- Success -->
-      <div class="calc-card" x-show="calcStep === 3 && homeLeadSubmitted">
+      <!-- Step 5: Final Success (after report only, or after report + quotes) -->
+      <div class="calc-card" x-show="calcStep === 5 || (calcStep === 4 && homeLeadSubmitted && homeLead.wantQuotes)">
         <div class="success-card">
-          <div class="success-icon">🎉</div>
+          <div class="success-icon"><svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#f0fdfa" stroke="#0f766e" stroke-width="3"/><path d="M18 28l7 7L38 21" stroke="#0f766e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <h2>You're All Set!</h2>
-          <template x-if="homeLead.wantReport && homeLead.wantQuotes"><p>Your report is on its way to <strong x-text="homeLead.email"></strong>, and up to 3 verified local installers will be in touch within 48 hours.</p></template>
-          <template x-if="homeLead.wantReport && !homeLead.wantQuotes"><p>Your report is on its way to <strong x-text="homeLead.email"></strong>. Check your inbox shortly.</p></template>
-          <template x-if="!homeLead.wantReport && homeLead.wantQuotes"><p>Up to 3 verified local installers in your area will be in touch within 48 hours.</p></template>
+          <template x-if="homeLead.wantQuotes">
+            <p>Your report is on its way to <strong x-text="homeLead.email"></strong>, and up to 3 verified local installers will be in touch within 48 hours.</p>
+          </template>
+          <template x-if="!homeLead.wantQuotes">
+            <p>Your report is on its way to <strong x-text="homeLead.email"></strong>. Use it to plan your next steps at your own pace.</p>
+          </template>
           <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
             <button class="btn btn-primary" @click="page='rebates'; window.scrollTo(0,0)">Explore All Rebates</button>
             <button class="btn btn-secondary" @click="page = calc.ownership === 'landlord' ? 'landlord' : 'homeowner'; window.scrollTo(0,0)">Read the Full Rules</button>
@@ -302,8 +464,8 @@
       <div class="feature-grid">
         <div class="card">
           <div class="feature-icon"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="12" fill="#f0fdfa"/><path d="M16 24l4 4 8-8" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="12" y="12" width="24" height="24" rx="4" stroke="#0f766e" stroke-width="2" fill="none"/></svg></div>
-          <h3>1. Check Your Home</h3>
-          <p>Answer a few quick questions about your property. We'll tell you if you're compliant with Victoria's new rules and what needs attention.</p>
+          <h3>1. Check Your Property</h3>
+          <p>Answer a few quick questions about your property. We'll check if you're compliant with Victoria's new rules and what needs attention.</p>
         </div>
         <div class="card">
           <div class="feature-icon"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="12" fill="#f0fdfa"/><path d="M14 34V18l6-4 6 6 8-8" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 34h20" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/></svg></div>
@@ -354,7 +516,7 @@
 
   <section class="cta-banner" x-show="!homeResults">
     <div class="container">
-      <h2>Ready to check your home?</h2>
+      <h2>Ready to check your property?</h2>
       <p>Our free calculator takes 60 seconds. Scroll up and get started.</p>
       <button class="btn btn-primary btn-lg" @click="window.scrollTo({ top: 0, behavior: 'smooth' })" style="background: var(--white); color: var(--green-800);">
         ↑ Start the Calculator
@@ -371,7 +533,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <div class="footer-brand">⚡ Switch to Electric Vic</div>
+        <div class="footer-brand"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="display:inline;vertical-align:middle;"><path d="M11 2L4 11h5l-2 7 7-9h-5l2-7z" fill="#0f766e"/></svg> Switch to Electric Vic</div>
         <p class="footer-desc">Helping Victorian homeowners and landlords navigate the electrification transition. Free tools, verified tradies, real savings.</p>
       </div>
       <div>
