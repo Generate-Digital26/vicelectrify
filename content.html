@@ -67,7 +67,7 @@
     </ol>
 
     <div style="text-align:center; margin-top:40px;">
-      <button class="btn btn-primary btn-lg" @click="page='calculator'; calcStep=1; calc.ownership='owner'; window.scrollTo(0,0)">Check My Home Free →</button>
+      <button class="btn btn-primary btn-lg" @click="page='home'; calcStep=1; calc.ownership='owner'; $nextTick(() => document.getElementById('calculator-section')?.scrollIntoView({ behavior: 'smooth' }))">Check My Home Free →</button>
     </div>
   </div>
 </div>
@@ -158,7 +158,7 @@
     </ol>
 
     <div style="text-align:center; margin-top:40px;">
-      <button class="btn btn-primary btn-lg" @click="page='calculator'; calcStep=1; calc.ownership='landlord'; window.scrollTo(0,0)">Check My Rental Property →</button>
+      <button class="btn btn-primary btn-lg" @click="page='home'; calcStep=1; calc.ownership='landlord'; $nextTick(() => document.getElementById('calculator-section')?.scrollIntoView({ behavior: 'smooth' }))">Check My Rental Property →</button>
     </div>
   </div>
 </div>
@@ -268,7 +268,7 @@
     </div>
 
     <div style="text-align:center; margin-top:40px;">
-      <button class="btn btn-primary btn-lg" @click="page='calculator'; calcStep=1; window.scrollTo(0,0)">See Which Rebates Apply to Me →</button>
+      <button class="btn btn-primary btn-lg" @click="page='home'; calcStep=1; $nextTick(() => document.getElementById('calculator-section')?.scrollIntoView({ behavior: 'smooth' }))">See Which Rebates Apply to Me →</button>
     </div>
   </div>
 </div>
@@ -314,7 +314,7 @@
     <p>Email: <a href="mailto:hello@switchtoelectricvic.com.au">hello@switchtoelectricvic.com.au</a></p>
 
     <div style="text-align:center; margin-top:40px;">
-      <button class="btn btn-primary btn-lg" @click="page='calculator'; calcStep=1; window.scrollTo(0,0)">Try the Free Calculator →</button>
+      <button class="btn btn-primary btn-lg" @click="page='home'; calcStep=1; $nextTick(() => document.getElementById('calculator-section')?.scrollIntoView({ behavior: 'smooth' }))">Try the Free Calculator →</button>
     </div>
   </div>
 </div>
