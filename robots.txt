@@ -17,4 +17,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://vicelectrify.com.au/sitemap.xml
+Sitemap: https://www.switchtoelectricvic.com.au/sitemap.xml
