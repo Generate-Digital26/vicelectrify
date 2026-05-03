@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Switch to Electric Vic — Free Victorian Electrification & Rebate Calculator</title>
+<meta name="description" content="Free calculator for Victorian homeowners and landlords. Check your compliance with Victoria's new electrification rules, estimate upgrade costs after rebates (save up to $2,030 on heat pump hot water), and find verified local installers. Updated May 2026.">
+<meta name="keywords" content="rebate calculator vic, victorian energy rebate calculator, victoria electrification rules, victoria gas ban, heat pump rebate victoria, MEES victoria 2027, rental energy efficiency standards victoria, victorian energy upgrades">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23134e4a'/><path d='M58 15L30 55h18L40 85l30-42H52L58 15z' fill='white'/></svg>">
+<link rel="canonical" href="https://www.switchtoelectricvic.com.au">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Switch to Electric Vic — Free Victorian Electrification & Rebate Calculator">
+<meta property="og:description" content="Victoria's gas rules are changing. Check your compliance in 60 seconds, see upgrade costs after rebates, and connect with verified local installers. Free tool for homeowners and landlords.">
+<meta property="og:url" content="https://www.switchtoelectricvic.com.au">
+<meta property="og:site_name" content="Switch to Electric Vic">
+<meta property="og:locale" content="en_AU">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Switch to Electric Vic — Free Victorian Electrification & Rebate Calculator">
+<meta name="twitter:description" content="Check your compliance with Victoria's new electrification rules. Free calculator shows upgrade costs, rebates up to $2,030, and annual savings.">
+
+<script src="/schema.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13/dist/cdn.min.js"></script>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body x-data="app()" x-cloak>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" @click="page='home'; window.scrollTo(0,0)">
+      <span>⚡</span> Switch to Electric Vic
+    </div>
+    <div class="nav-links">
+      <button @click="page='homeowner'; window.scrollTo(0,0)">Homeowner Rules</button>
+      <button @click="page='landlord'; window.scrollTo(0,0)">Landlord Rules</button>
+      <button @click="page='rebates'; window.scrollTo(0,0)">Rebates</button>
+      <button @click="page='about'; window.scrollTo(0,0)">About</button>
+      <button class="btn-calc" @click="page='calculator'; calcStep=1; window.scrollTo(0,0)">Free Calculator →</button>
+    </div>
+    <button class="mobile-toggle" @click="mobileOpen = !mobileOpen">☰</button>
+  </div>
+  <div class="mobile-menu" :class="{ open: mobileOpen }">
+    <button @click="page='homeowner'; mobileOpen=false; window.scrollTo(0,0)">Homeowner Rules</button>
+    <button @click="page='landlord'; mobileOpen=false; window.scrollTo(0,0)">Landlord Rules</button>
+    <button @click="page='rebates'; mobileOpen=false; window.scrollTo(0,0)">Rebates</button>
+    <button @click="page='about'; mobileOpen=false; window.scrollTo(0,0)">About</button>
+    <button class="btn-calc" @click="page='calculator'; calcStep=1; mobileOpen=false; window.scrollTo(0,0)">Free Calculator →</button>
+  </div>
+</nav>
+
+
+
+<!-- ========== HOME PAGE ========== -->
+<template x-if="page === 'home'">
+<div>
+  <!-- Hero with inline calculator -->
+  <section class="hero" style="padding-bottom:40px;">
+    <div class="container">
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:48px; align-items:start;" class="hero-grid">
+        <div class="hero-content">
+          <div class="badge badge-green" style="margin-bottom:16px">New Victorian Rules in Effect</div>
+          <h1>Victoria's gas rules are changing. Is your home ready?</h1>
+          <p>Check your compliance in 60 seconds. See what upgrades you need, what they'll cost after rebates, and how much you'll save.</p>
+          <div class="hero-stats" style="margin-top:32px; border-top:1px solid rgba(255,255,255,0.15); padding-top:24px;">
+            <div class="hero-stat"><span class="num">$2,030</span><span class="label">Max Hot Water Rebates</span></div>
+            <div class="hero-stat"><span class="num">Mar 2027</span><span class="label">Rental Deadline</span></div>
+            <div class="hero-stat"><span class="num">3.7 yrs</span><span class="label">Avg Payback</span></div>
+          </div>
+        </div>
+        <!-- Quick Calculator Card -->
+        <div x-show="!homeResults" style="background:var(--white); border-radius:var(--radius); padding:32px; box-shadow:var(--shadow-xl); color:var(--slate-700);">
+          <h3 style="font-size:1.25rem; margin-bottom:4px; color:var(--slate-900);">Quick Home Check</h3>
+          <p style="font-size:0.85rem; color:var(--slate-500); margin-bottom:20px;">Tell us about your existing setup — takes under 60 seconds.</p>
+          <div class="form-group">
+            <label class="form-label">I am a…</label>
+            <div class="option-group">
+              <button class="option-pill" :class="{ selected: calc.ownership === 'owner' }" @click="calc.ownership = 'owner'">Homeowner</button>
+              <button class="option-pill" :class="{ selected: calc.ownership === 'landlord' }" @click="calc.ownership = 'landlord'">Landlord</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Current Hot Water System</label>
+            <div class="option-group">
+              <button class="option-pill" :class="{ selected: calc.hotWater === 'gas_storage' }" @click="calc.hotWater = 'gas_storage'">Gas</button>
+              <button class="option-pill" :class="{ selected: calc.hotWater === 'electric' }" @click="calc.hotWater = 'electric'">Electric</button>
+              <button class="option-pill" :class="{ selected: calc.hotWater === 'heat_pump' }" @click="calc.hotWater = 'heat_pump'">Heat Pump</button>
+              <button class="option-pill" :class="{ selected: calc.hotWater === 'unknown' }" @click="calc.hotWater = 'unknown'">Not Sure</button>
+              <button class="option-pill" :class="{ selected: calc.hotWater === 'na' }" @click="calc.hotWater = 'na'">N/A</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Current Heating</label>
+            <div class="option-group">
+              <button class="option-pill" :class="{ selected: calc.heating === 'gas_ducted' }" @click="calc.heating = 'gas_ducted'">Gas Ducted</button>
+              <button class="option-pill" :class="{ selected: calc.heating === 'gas_wall' }" @click="calc.heating = 'gas_wall'">Gas Heater</button>
+              <button class="option-pill" :class="{ selected: calc.heating === 'rc_ac' }" @click="calc.heating = 'rc_ac'">Reverse Cycle</button>
+              <button class="option-pill" :class="{ selected: calc.heating === 'unknown' }" @click="calc.heating = 'unknown'">Not Sure</button>
+              <button class="option-pill" :class="{ selected: calc.heating === 'na' }" @click="calc.heating = 'na'">N/A</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Current Cooktop</label>
+            <div class="option-group">
+              <button class="option-pill" :class="{ selected: calc.cooktop === 'gas' }" @click="calc.cooktop = 'gas'">Gas</button>
+              <button class="option-pill" :class="{ selected: calc.cooktop === 'electric' }" @click="calc.cooktop = 'electric'">Electric</button>
+              <button class="option-pill" :class="{ selected: calc.cooktop === 'induction' }" @click="calc.cooktop = 'induction'">Induction</button>
+              <button class="option-pill" :class="{ selected: calc.cooktop === 'na' }" @click="calc.cooktop = 'na'">N/A</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Property Age</label>
+            <div class="option-group">
+              <button class="option-pill" :class="{ selected: calc.propAge === 'pre1990' }" @click="calc.propAge = 'pre1990'">Pre-1990</button>
+              <button class="option-pill" :class="{ selected: calc.propAge === '1990-2010' }" @click="calc.propAge = '1990-2010'">1990–2010</button>
+              <button class="option-pill" :class="{ selected: calc.propAge === '2010-2020' }" @click="calc.propAge = '2010-2020'">2010–2020</button>
+              <button class="option-pill" :class="{ selected: calc.propAge === 'post2020' }" @click="calc.propAge = 'post2020'">Post-2020</button>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block btn-lg" @click="computeResults(); homeResults = true; $nextTick(() => { document.getElementById('home-results').scrollIntoView({ behavior: 'smooth' }) })" :disabled="!calc.ownership || !calc.hotWater || !calc.heating">
+            See My Results →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inline Results (shown after calculator submission) -->
+  <template x-if="homeResults">
+  <section class="section" id="home-results" style="background: var(--white);">
+    <div class="container" style="max-width:900px;">
+      <div style="text-align:center; margin-bottom:36px;">
+        <h2 style="font-size:2rem;">Your Results</h2>
+        <p style="color:var(--slate-500);">Based on your answers, here's where your property stands.</p>
+      </div>
+
+      <!-- Compliance -->
+      <template x-if="results.compliance === 'compliant'">
+        <div class="compliance-status green">
+          <div class="compliance-icon">✅</div>
+          <div>
+            <h3>You're Compliant</h3>
+            <p>Your home meets current electrification requirements. You may still save money with upgrades below.</p>
+          </div>
+        </div>
+      </template>
+      <template x-if="results.compliance === 'action_needed'">
+        <div class="compliance-status amber">
+          <div class="compliance-icon">⚠️</div>
+          <div>
+            <h3>Action Needed</h3>
+            <p x-text="results.complianceMsg"></p>
+          </div>
+        </div>
+      </template>
+      <template x-if="results.compliance === 'non_compliant'">
+        <div class="compliance-status red">
+          <div class="compliance-icon">❌</div>
+          <div>
+            <h3>Non-Compliant — Action Required</h3>
+            <p x-text="results.complianceMsg"></p>
+          </div>
+        </div>
+      </template>
+
+      <template x-if="calc.ownership === 'landlord'">
+        <div class="callout callout-red" style="margin-bottom:24px;">
+          <div class="callout-icon">⚖️</div>
+          <div>
+            <h4>Landlord Alert</h4>
+            <p>Advertising a non-compliant rental is a <strong>criminal offence</strong> since Nov 2025. Full MEES compliance required by <strong>1 March 2027</strong>.</p>
+          </div>
+        </div>
+      </template>
+
+      <!-- Summary Cards -->
+      <template x-if="results.upgrades.length > 0">
+      <div>
+        <div class="summary-totals" style="margin-bottom:28px;">
+          <div class="summary-box">
+            <span class="num" x-text="'$' + results.totalGross.toLocaleString()"></span>
+            <span class="label">Total Upgrade Cost</span>
+          </div>
+          <div class="summary-box highlight">
+            <span class="num" x-text="'-$' + results.totalRebate.toLocaleString()"></span>
+            <span class="label">Available Rebates</span>
+          </div>
+          <div class="summary-box highlight">
+            <span class="num" x-text="'$' + results.totalNet.toLocaleString()"></span>
+            <span class="label">Your Net Cost</span>
+          </div>
+          <div class="summary-box">
+            <span class="num" x-text="'$' + results.totalSaving.toLocaleString() + '/yr'"></span>
+            <span class="label">Annual Savings</span>
+          </div>
+        </div>
+
+        <!-- Upgrade Preview List -->
+        <div style="background:var(--slate-50); border-radius:var(--radius); padding:24px; margin-bottom:32px;">
+          <h3 style="font-size:1.1rem; margin-bottom:16px;">Recommended Upgrades</h3>
+          <template x-for="u in results.upgrades" :key="u.name">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid var(--slate-200); flex-wrap:wrap; gap:8px;">
+              <div>
+                <div style="font-weight:600; color:var(--slate-900);" x-text="u.name"></div>
+                <div style="font-size:0.8rem; color:var(--slate-500);" x-text="u.desc"></div>
+                <template x-if="u.priority === 'compliance'">
+                  <span class="badge badge-red" style="margin-top:4px;">Compliance Required</span>
+                </template>
+              </div>
+              <div style="text-align:right; flex-shrink:0;">
+                <div><span class="cost-strike" x-text="'$' + u.gross.toLocaleString()"></span> → <span class="cost-net" x-text="'$' + u.net.toLocaleString()"></span></div>
+                <div style="font-size:0.8rem; color:var(--green-700);" x-text="'Saves $' + u.saving.toLocaleString() + '/yr'"></div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+      </template>
+
+      <template x-if="results.upgrades.length === 0">
+        <div class="callout callout-green" style="margin-bottom:32px;">
+          <div class="callout-icon">🎉</div>
+          <div>
+            <h4>Looking good!</h4>
+            <p>Your home is already well set up. Consider solar or a battery to further reduce bills.</p>
+          </div>
+        </div>
+      </template>
+
+      <!-- Two-Option Lead Capture -->
+      <div x-show="!homeLeadSubmitted">
+        <h3 style="text-align:center; font-size:1.4rem; margin-bottom:8px;">Want to take the next step?</h3>
+        <p style="text-align:center; color:var(--slate-500); margin-bottom:28px;">Choose one or both — it's free, no obligation.</p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;" class="lead-options-grid">
+          <!-- Option 1: Email Report -->
+          <div class="card" :class="{ 'card-green': homeLead.wantReport }" style="cursor:pointer;" @click="homeLead.wantReport = !homeLead.wantReport">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+              <div style="width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem;" :style="homeLead.wantReport ? 'background:var(--green-600); color:white;' : 'background:var(--slate-100);'">
+                <span x-text="homeLead.wantReport ? '✓' : '📧'"></span>
+              </div>
+              <h3 style="font-size:1.1rem; margin:0;">Email Me a Detailed Report</h3>
+            </div>
+            <p style="font-size:0.9rem; color:var(--slate-500); margin:0;">Get a personalised PDF with your full compliance status, all available rebates, upgrade costs, savings projections, and step-by-step action plan.</p>
+          </div>
+
+          <!-- Option 2: Connect with Businesses -->
+          <div class="card" :class="{ 'card-green': homeLead.wantQuotes }" style="cursor:pointer;" @click="homeLead.wantQuotes = !homeLead.wantQuotes">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+              <div style="width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem;" :style="homeLead.wantQuotes ? 'background:var(--green-600); color:white;' : 'background:var(--slate-100);'">
+                <span x-text="homeLead.wantQuotes ? '✓' : '🔧'"></span>
+              </div>
+              <h3 style="font-size:1.1rem; margin:0;">Connect Me with Installers</h3>
+            </div>
+            <p style="font-size:0.9rem; color:var(--slate-500); margin:0;">Get free quotes from up to 3 verified local businesses who specialise in exactly what you need. No spam, no lead flooding — maximum 3 per service.</p>
+          </div>
+        </div>
+
+        <!-- Contact Form (shows when either option selected) -->
+        <div x-show="homeLead.wantReport || homeLead.wantQuotes" style="margin-top:24px;" x-transition>
+          <div class="lead-form-section">
+            <h3 style="font-size:1.15rem; margin-bottom:4px;">Your Details</h3>
+            <p class="form-subtitle" x-text="homeLead.wantReport && homeLead.wantQuotes ? 'We\'ll email your report and connect you with up to 3 local installers.' : homeLead.wantReport ? 'We\'ll email your personalised report.' : 'Your details are shared with a maximum of 3 matched businesses per service type.'"></p>
+
+            <div class="form-row" style="margin-bottom:16px;">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" placeholder="Jane Smith" x-model="homeLead.name">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" placeholder="jane@example.com" x-model="homeLead.email">
+              </div>
+            </div>
+            <div class="form-row" style="margin-bottom:16px;">
+              <div class="form-group" x-show="homeLead.wantQuotes">
+                <label class="form-label">Phone</label>
+                <input type="tel" class="form-input" placeholder="04XX XXX XXX" x-model="homeLead.phone">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Suburb or Postcode</label>
+                <input type="text" class="form-input" placeholder="e.g. Brunswick, 3056" x-model="calc.suburb">
+              </div>
+            </div>
+
+            <div class="form-group" x-show="homeLead.wantQuotes">
+              <label class="form-label">Timeline</label>
+              <div class="option-group">
+                <button class="option-pill" :class="{ selected: homeLead.timeline === 'now' }" @click="homeLead.timeline = 'now'" style="font-size:0.85rem;">Ready Now</button>
+                <button class="option-pill" :class="{ selected: homeLead.timeline === '3months' }" @click="homeLead.timeline = '3months'" style="font-size:0.85rem;">Within 3 Months</button>
+                <button class="option-pill" :class="{ selected: homeLead.timeline === '12months' }" @click="homeLead.timeline = '12months'" style="font-size:0.85rem;">Within 12 Months</button>
+                <button class="option-pill" :class="{ selected: homeLead.timeline === 'research' }" @click="homeLead.timeline = 'research'" style="font-size:0.85rem;">Just Researching</button>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-lg btn-block" @click="submitLead()" :disabled="!homeLead.name || !homeLead.email || (homeLead.wantQuotes && !homeLead.phone) || submitting">
+              <span x-show="!submitting" x-text="homeLead.wantReport && homeLead.wantQuotes ? 'Send Report & Get Quotes →' : homeLead.wantReport ? 'Send My Free Report →' : 'Get Up to 3 Free Quotes →'"></span>
+              <span x-show="submitting">Submitting…</span>
+            </button>
+            <p x-show="submitError" style="color:var(--red-600); font-size:0.9rem; margin-top:8px; text-align:center;" x-text="submitError"></p>
+            <p class="privacy-note">🔒 <strong>Your privacy matters.</strong> <span x-text="homeLead.wantQuotes ? 'Your details are shared with a maximum of 3 matched local businesses per service type — never sold, never spammed.' : 'Your email is only used to send your report — we won\'t spam you.'"></span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success State -->
+      <div x-show="homeLeadSubmitted" x-transition>
+        <div class="success-card" style="background:var(--green-50); border-radius:var(--radius); padding:40px;">
+          <div class="success-icon">🎉</div>
+          <h2>You're All Set!</h2>
+          <template x-if="homeLead.wantReport && homeLead.wantQuotes">
+            <p>Your personalised report is on its way to <strong x-text="homeLead.email"></strong>, and up to 3 verified local installers will be in touch within 48 hours.</p>
+          </template>
+          <template x-if="homeLead.wantReport && !homeLead.wantQuotes">
+            <p>Your personalised report is on its way to <strong x-text="homeLead.email"></strong>. Check your inbox shortly.</p>
+          </template>
+          <template x-if="!homeLead.wantReport && homeLead.wantQuotes">
+            <p>Up to 3 verified local installers in your area will be in touch within 48 hours.</p>
+          </template>
+          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
+            <button class="btn btn-primary" @click="page='rebates'; window.scrollTo(0,0)">Explore All Rebates</button>
+            <button class="btn btn-secondary" @click="page = calc.ownership === 'landlord' ? 'landlord' : 'homeowner'; window.scrollTo(0,0)">Read the Full Rules</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recalculate link -->
+      <div style="text-align:center; margin-top:24px;">
+        <button style="background:none; border:none; color:var(--green-700); font-weight:600; font-size:0.9rem; cursor:pointer; padding:8px 16px;" @click="homeResults = false; homeLeadSubmitted = false; homeLead.wantReport = false; homeLead.wantQuotes = false; window.scrollTo(0,0)">
+          ← Recalculate with different answers
+        </button>
+      </div>
+    </div>
+  </section>
+  </template>
+
+  <!-- How it works (shown before results or after) -->
+  <section class="section" :style="homeResults ? '' : ''">
+    <div class="container">
+      <div class="section-header">
+        <h2>How Switch to Electric Vic Works</h2>
+        <p>Three steps to clarity on Victoria's electrification transition.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="card">
+          <div class="feature-icon">📋</div>
+          <h3>1. Check Your Home</h3>
+          <p>Answer a few quick questions about your property. We'll tell you if you're compliant with Victoria's new rules and what needs attention.</p>
+        </div>
+        <div class="card">
+          <div class="feature-icon">📊</div>
+          <h3>2. Get Your Report</h3>
+          <p>Receive a personalised report with upgrade costs, available rebates, savings estimates, and a step-by-step action plan — free via email.</p>
+        </div>
+        <div class="card">
+          <div class="feature-icon">🔧</div>
+          <h3>3. Connect with Installers</h3>
+          <p>Get free quotes from up to 3 verified local businesses. No lead flooding — just qualified tradies who do this work every day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--slate-50)">
+    <div class="container">
+      <div class="section-header">
+        <h2>Learn More</h2>
+        <p>Understand exactly what the rules mean for you.</p>
+      </div>
+      <div class="path-grid">
+        <div class="path-card" @click="page='homeowner'; window.scrollTo(0,0)">
+          <div class="path-icon">🏠</div>
+          <h3>Homeowner Guide</h3>
+          <p>What the new electrification rules mean for owner-occupiers.</p>
+          <ul>
+            <li>End-of-life gas replacement rules</li>
+            <li>Up to $2,030 in rebates on hot water</li>
+            <li>Solar, battery & insulation incentives</li>
+          </ul>
+          <span class="btn btn-primary btn-sm">Read the Guide →</span>
+        </div>
+        <div class="path-card" @click="page='landlord'; window.scrollTo(0,0)">
+          <div class="path-icon">🏢</div>
+          <h3>Landlord Guide</h3>
+          <p>Stricter rules, tighter deadlines, and penalties already in force.</p>
+          <ul>
+            <li>MEES compliance by March 2027</li>
+            <li>Advertising rules already in force</li>
+            <li>Landlord-specific rebates & loans</li>
+          </ul>
+          <span class="btn btn-primary btn-sm">Read the Guide →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner" x-show="!homeResults">
+    <div class="container">
+      <h2>Ready to check your home?</h2>
+      <p>Our free calculator takes 60 seconds. Scroll up and get started.</p>
+      <button class="btn btn-primary btn-lg" @click="window.scrollTo({ top: 0, behavior: 'smooth' })" style="background: var(--white); color: var(--green-800);">
+        ↑ Start the Calculator
+      </button>
+    </div>
+  </section>
+</div>
+</template>
+
+<div id="dynamic-pages"></div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">⚡ Switch to Electric Vic</div>
+        <p class="footer-desc">Helping Victorian homeowners and landlords navigate the electrification transition. Free tools, verified tradies, real savings.</p>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#" @click.prevent="page='homeowner'; window.scrollTo(0,0)">Homeowner Rules</a></li>
+          <li><a href="#" @click.prevent="page='landlord'; window.scrollTo(0,0)">Landlord Rules</a></li>
+          <li><a href="#" @click.prevent="page='rebates'; window.scrollTo(0,0)">Rebates Guide</a></li>
+          <li><a href="#" @click.prevent="page='calculator'; calcStep=1; window.scrollTo(0,0)">Free Calculator</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#" @click.prevent="page='about'; window.scrollTo(0,0)">About</a></li>
+          <li><a href="#" @click.prevent="page='privacy'; window.scrollTo(0,0)">Privacy Policy</a></li>
+          <li><a href="mailto:hello@switchtoelectricvic.com.au">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Switch to Electric Vic is an independent service and is not affiliated with the Victorian Government. Information is provided for general guidance only and should not be considered legal or financial advice. © 2026 Switch to Electric Vic. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="/app.js"></script>
+<script>
+// Load additional page templates
+Promise.all([
+  fetch('/calculator.html').then(r => r.text()),
+  fetch('/content.html').then(r => r.text())
+]).then(([calc, content]) => {
+  document.getElementById('dynamic-pages').innerHTML = calc + content;
+});
+</script>
+</body>
+</html>
