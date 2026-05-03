@@ -36,23 +36,25 @@
 <nav>
   <div class="nav-inner">
     <div class="nav-logo" @click="page='home'; window.scrollTo(0,0)">
-      <span>⚡</span> Switch to Electric Vic
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 2L4.5 13.5H11L9 22L19.5 10H13L13 2Z" fill="#0f766e" stroke="#0f766e" stroke-width="1.5" stroke-linejoin="round"/></svg> Switch to Electric Vic
     </div>
     <div class="nav-links">
       <button @click="page='homeowner'; window.scrollTo(0,0)">Homeowner Rules</button>
       <button @click="page='landlord'; window.scrollTo(0,0)">Landlord Rules</button>
       <button @click="page='rebates'; window.scrollTo(0,0)">Rebates</button>
       <button @click="page='about'; window.scrollTo(0,0)">About</button>
-      <button class="btn-calc" @click="page='calculator'; calcStep=1; window.scrollTo(0,0)">Free Calculator →</button>
+      <button class="btn-calc" @click="page='calculator'; calcStep=1; window.scrollTo(0,0)">Free Calculator &rarr;</button>
     </div>
-    <button class="mobile-toggle" @click="mobileOpen = !mobileOpen">☰</button>
+    <button class="mobile-toggle" @click="mobileOpen = !mobileOpen" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
   </div>
   <div class="mobile-menu" :class="{ open: mobileOpen }">
     <button @click="page='homeowner'; mobileOpen=false; window.scrollTo(0,0)">Homeowner Rules</button>
     <button @click="page='landlord'; mobileOpen=false; window.scrollTo(0,0)">Landlord Rules</button>
     <button @click="page='rebates'; mobileOpen=false; window.scrollTo(0,0)">Rebates</button>
     <button @click="page='about'; mobileOpen=false; window.scrollTo(0,0)">About</button>
-    <button class="btn-calc" @click="page='calculator'; calcStep=1; mobileOpen=false; window.scrollTo(0,0)">Free Calculator →</button>
+    <button class="btn-calc" @click="page='calculator'; calcStep=1; mobileOpen=false; window.scrollTo(0,0)">Free Calculator &rarr;</button>
   </div>
 </nav>
 
@@ -80,7 +82,7 @@
           <h3 style="font-size:1.25rem; margin-bottom:4px; color:var(--slate-900);">Quick Home Check</h3>
           <p style="font-size:0.85rem; color:var(--slate-500); margin-bottom:20px;">Tell us about your existing setup — takes under 60 seconds.</p>
           <div class="form-group">
-            <label class="form-label">I am a…</label>
+            <label class="form-label">I am a&hellip;</label>
             <div class="option-group">
               <button class="option-pill" :class="{ selected: calc.ownership === 'owner' }" @click="calc.ownership = 'owner'">Homeowner</button>
               <button class="option-pill" :class="{ selected: calc.ownership === 'landlord' }" @click="calc.ownership = 'landlord'">Landlord</button>
@@ -119,13 +121,13 @@
             <label class="form-label">Property Age</label>
             <div class="option-group">
               <button class="option-pill" :class="{ selected: calc.propAge === 'pre1990' }" @click="calc.propAge = 'pre1990'">Pre-1990</button>
-              <button class="option-pill" :class="{ selected: calc.propAge === '1990-2010' }" @click="calc.propAge = '1990-2010'">1990–2010</button>
-              <button class="option-pill" :class="{ selected: calc.propAge === '2010-2020' }" @click="calc.propAge = '2010-2020'">2010–2020</button>
+              <button class="option-pill" :class="{ selected: calc.propAge === '1990-2010' }" @click="calc.propAge = '1990-2010'">1990&ndash;2010</button>
+              <button class="option-pill" :class="{ selected: calc.propAge === '2010-2020' }" @click="calc.propAge = '2010-2020'">2010&ndash;2020</button>
               <button class="option-pill" :class="{ selected: calc.propAge === 'post2020' }" @click="calc.propAge = 'post2020'">Post-2020</button>
             </div>
           </div>
           <button class="btn btn-primary btn-block btn-lg" @click="computeResults(); homeResults = true; $nextTick(() => { document.getElementById('home-results').scrollIntoView({ behavior: 'smooth' }) })" :disabled="!calc.ownership || !calc.hotWater || !calc.heating">
-            See My Results →
+            See My Results &rarr;
           </button>
         </div>
       </div>
@@ -144,7 +146,9 @@
       <!-- Compliance -->
       <template x-if="results.compliance === 'compliant'">
         <div class="compliance-status green">
-          <div class="compliance-icon">✅</div>
+          <div class="compliance-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0f766e" stroke-width="2"/><path d="M7 12.5l3.5 3.5 6.5-7" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
           <div>
             <h3>You're Compliant</h3>
             <p>Your home meets current electrification requirements. You may still save money with upgrades below.</p>
@@ -153,7 +157,9 @@
       </template>
       <template x-if="results.compliance === 'action_needed'">
         <div class="compliance-status amber">
-          <div class="compliance-icon">⚠️</div>
+          <div class="compliance-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 3L2 21h20L12 3z" stroke="#d97706" stroke-width="2" stroke-linejoin="round"/><path d="M12 10v5" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="17.5" r="1" fill="#d97706"/></svg>
+          </div>
           <div>
             <h3>Action Needed</h3>
             <p x-text="results.complianceMsg"></p>
@@ -162,7 +168,9 @@
       </template>
       <template x-if="results.compliance === 'non_compliant'">
         <div class="compliance-status red">
-          <div class="compliance-icon">❌</div>
+          <div class="compliance-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#dc2626" stroke-width="2"/><path d="M8 8l8 8M16 8l-8 8" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
           <div>
             <h3>Non-Compliant — Action Required</h3>
             <p x-text="results.complianceMsg"></p>
@@ -172,7 +180,9 @@
 
       <template x-if="calc.ownership === 'landlord'">
         <div class="callout callout-red" style="margin-bottom:24px;">
-          <div class="callout-icon">⚖️</div>
+          <div class="callout-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#dc2626" stroke-width="2"/><path d="M8 12h8M12 8v8" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
           <div>
             <h4>Landlord Alert</h4>
             <p>Advertising a non-compliant rental is a <strong>criminal offence</strong> since Nov 2025. Full MEES compliance required by <strong>1 March 2027</strong>.</p>
@@ -215,7 +225,7 @@
                 </template>
               </div>
               <div style="text-align:right; flex-shrink:0;">
-                <div><span class="cost-strike" x-text="'$' + u.gross.toLocaleString()"></span> → <span class="cost-net" x-text="'$' + u.net.toLocaleString()"></span></div>
+                <div><span class="cost-strike" x-text="'$' + u.gross.toLocaleString()"></span> &rarr; <span class="cost-net" x-text="'$' + u.net.toLocaleString()"></span></div>
                 <div style="font-size:0.8rem; color:var(--green-700);" x-text="'Saves $' + u.saving.toLocaleString() + '/yr'"></div>
               </div>
             </div>
@@ -226,7 +236,9 @@
 
       <template x-if="results.upgrades.length === 0">
         <div class="callout callout-green" style="margin-bottom:32px;">
-          <div class="callout-icon">🎉</div>
+          <div class="callout-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0f766e" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
           <div>
             <h4>Looking good!</h4>
             <p>Your home is already well set up. Consider solar or a battery to further reduce bills.</p>
@@ -243,8 +255,13 @@
           <!-- Option 1: Email Report -->
           <div class="card" :class="{ 'card-green': homeLead.wantReport }" style="cursor:pointer;" @click="homeLead.wantReport = !homeLead.wantReport">
             <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-              <div style="width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem;" :style="homeLead.wantReport ? 'background:var(--green-600); color:white;' : 'background:var(--slate-100);'">
-                <span x-text="homeLead.wantReport ? '✓' : '📧'"></span>
+              <div class="lead-option-icon" :class="homeLead.wantReport ? 'icon-active' : ''">
+                <template x-if="homeLead.wantReport">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </template>
+                <template x-if="!homeLead.wantReport">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#64748b" stroke-width="2"/><path d="M3 9l9 6 9-6" stroke="#64748b" stroke-width="2" stroke-linecap="round"/></svg>
+                </template>
               </div>
               <h3 style="font-size:1.1rem; margin:0;">Email Me a Detailed Report</h3>
             </div>
@@ -254,8 +271,13 @@
           <!-- Option 2: Connect with Businesses -->
           <div class="card" :class="{ 'card-green': homeLead.wantQuotes }" style="cursor:pointer;" @click="homeLead.wantQuotes = !homeLead.wantQuotes">
             <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-              <div style="width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem;" :style="homeLead.wantQuotes ? 'background:var(--green-600); color:white;' : 'background:var(--slate-100);'">
-                <span x-text="homeLead.wantQuotes ? '✓' : '🔧'"></span>
+              <div class="lead-option-icon" :class="homeLead.wantQuotes ? 'icon-active' : ''">
+                <template x-if="homeLead.wantQuotes">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </template>
+                <template x-if="!homeLead.wantQuotes">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3-3a1 1 0 0 0-1.4-1.4l-2.3 2.3-.9-.9a1 1 0 0 0-1.4 0z" fill="#64748b"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z" stroke="#64748b" stroke-width="2" stroke-linejoin="round" fill="none"/></svg>
+                </template>
               </div>
               <h3 style="font-size:1.1rem; margin:0;">Connect Me with Installers</h3>
             </div>
@@ -301,11 +323,13 @@
             </div>
 
             <button class="btn btn-primary btn-lg btn-block" @click="submitLead()" :disabled="!homeLead.name || !homeLead.email || (homeLead.wantQuotes && !homeLead.phone) || submitting">
-              <span x-show="!submitting" x-text="homeLead.wantReport && homeLead.wantQuotes ? 'Send Report & Get Quotes →' : homeLead.wantReport ? 'Send My Free Report →' : 'Get Up to 3 Free Quotes →'"></span>
-              <span x-show="submitting">Submitting…</span>
+              <span x-show="!submitting" x-text="homeLead.wantReport && homeLead.wantQuotes ? 'Send Report & Get Quotes &rarr;' : homeLead.wantReport ? 'Send My Free Report &rarr;' : 'Get Up to 3 Free Quotes &rarr;'"></span>
+              <span x-show="submitting">Submitting&hellip;</span>
             </button>
             <p x-show="submitError" style="color:var(--red-600); font-size:0.9rem; margin-top:8px; text-align:center;" x-text="submitError"></p>
-            <p class="privacy-note">🔒 <strong>Your privacy matters.</strong> <span x-text="homeLead.wantQuotes ? 'Your details are shared with a maximum of 3 matched local businesses per service type — never sold, never spammed.' : 'Your email is only used to send your report — we won\'t spam you.'"></span></p>
+            <p class="privacy-note">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="display:inline;vertical-align:middle;margin-right:4px;"><rect x="5" y="11" width="14" height="10" rx="2" stroke="#64748b" stroke-width="2"/><path d="M8 11V7a4 4 0 1 1 8 0v4" stroke="#64748b" stroke-width="2" stroke-linecap="round"/></svg>
+              <strong>Your privacy matters.</strong> <span x-text="homeLead.wantQuotes ? 'Your details are shared with a maximum of 3 matched local businesses per service type — never sold, never spammed.' : 'Your email is only used to send your report — we won\'t spam you.'"></span></p>
           </div>
         </div>
       </div>
@@ -313,7 +337,9 @@
       <!-- Success State -->
       <div x-show="homeLeadSubmitted" x-transition>
         <div class="success-card" style="background:var(--green-50); border-radius:var(--radius); padding:40px;">
-          <div class="success-icon">🎉</div>
+          <div class="success-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/><path d="M7 12.5l3.5 3.5 6.5-7" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
           <h2>You're All Set!</h2>
           <template x-if="homeLead.wantReport && homeLead.wantQuotes">
             <p>Your personalised report is on its way to <strong x-text="homeLead.email"></strong>, and up to 3 verified local installers will be in touch within 48 hours.</p>
@@ -334,7 +360,7 @@
       <!-- Recalculate link -->
       <div style="text-align:center; margin-top:24px;">
         <button style="background:none; border:none; color:var(--green-700); font-weight:600; font-size:0.9rem; cursor:pointer; padding:8px 16px;" @click="homeResults = false; homeLeadSubmitted = false; homeLead.wantReport = false; homeLead.wantQuotes = false; window.scrollTo(0,0)">
-          ← Recalculate with different answers
+          &larr; Recalculate with different answers
         </button>
       </div>
     </div>
@@ -350,17 +376,17 @@
       </div>
       <div class="feature-grid">
         <div class="card">
-          <div class="feature-icon">📋</div>
+          <div class="feature-icon"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="12" fill="#f0fdfa"/><path d="M16 24l4 4 8-8" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="12" y="12" width="24" height="24" rx="4" stroke="#0f766e" stroke-width="2" fill="none"/></svg></div>
           <h3>1. Check Your Home</h3>
           <p>Answer a few quick questions about your property. We'll tell you if you're compliant with Victoria's new rules and what needs attention.</p>
         </div>
         <div class="card">
-          <div class="feature-icon">📊</div>
+          <div class="feature-icon"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="12" fill="#f0fdfa"/><path d="M14 34V18l6-4 6 6 8-8" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 34h20" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/></svg></div>
           <h3>2. Get Your Report</h3>
           <p>Receive a personalised report with upgrade costs, available rebates, savings estimates, and a step-by-step action plan — free via email.</p>
         </div>
         <div class="card">
-          <div class="feature-icon">🔧</div>
+          <div class="feature-icon"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="12" fill="#f0fdfa"/><circle cx="20" cy="20" r="5" stroke="#0f766e" stroke-width="2"/><circle cx="30" cy="20" r="5" stroke="#0f766e" stroke-width="2"/><path d="M12 34c0-4.4 3.6-8 8-8h8c4.4 0 8 3.6 8 8" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/></svg></div>
           <h3>3. Connect with Installers</h3>
           <p>Get free quotes from up to 3 verified local businesses. No lead flooding — just qualified tradies who do this work every day.</p>
         </div>
@@ -376,26 +402,26 @@
       </div>
       <div class="path-grid">
         <div class="path-card" @click="page='homeowner'; window.scrollTo(0,0)">
-          <div class="path-icon">🏠</div>
+          <div class="path-icon"><svg width="56" height="56" viewBox="0 0 56 56" fill="none"><rect width="56" height="56" rx="14" fill="#f0fdfa"/><path d="M28 16l-12 10v14h8v-8h8v8h8V26L28 16z" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" fill="none"/></svg></div>
           <h3>Homeowner Guide</h3>
           <p>What the new electrification rules mean for owner-occupiers.</p>
           <ul>
             <li>End-of-life gas replacement rules</li>
             <li>Up to $2,030 in rebates on hot water</li>
-            <li>Solar, battery & insulation incentives</li>
+            <li>Solar, battery &amp; insulation incentives</li>
           </ul>
-          <span class="btn btn-primary btn-sm">Read the Guide →</span>
+          <span class="btn btn-primary btn-sm">Read the Guide &rarr;</span>
         </div>
         <div class="path-card" @click="page='landlord'; window.scrollTo(0,0)">
-          <div class="path-icon">🏢</div>
+          <div class="path-icon"><svg width="56" height="56" viewBox="0 0 56 56" fill="none"><rect width="56" height="56" rx="14" fill="#f0fdfa"/><rect x="16" y="20" width="24" height="20" rx="2" stroke="#0f766e" stroke-width="2.5" fill="none"/><path d="M22 26h4M22 32h4M30 26h4M30 32h4" stroke="#0f766e" stroke-width="2" stroke-linecap="round"/><path d="M24 16h8v4H24z" stroke="#0f766e" stroke-width="2" fill="none"/></svg></div>
           <h3>Landlord Guide</h3>
           <p>Stricter rules, tighter deadlines, and penalties already in force.</p>
           <ul>
             <li>MEES compliance by March 2027</li>
             <li>Advertising rules already in force</li>
-            <li>Landlord-specific rebates & loans</li>
+            <li>Landlord-specific rebates &amp; loans</li>
           </ul>
-          <span class="btn btn-primary btn-sm">Read the Guide →</span>
+          <span class="btn btn-primary btn-sm">Read the Guide &rarr;</span>
         </div>
       </div>
     </div>
@@ -406,7 +432,7 @@
       <h2>Ready to check your home?</h2>
       <p>Our free calculator takes 60 seconds. Scroll up and get started.</p>
       <button class="btn btn-primary btn-lg" @click="window.scrollTo({ top: 0, behavior: 'smooth' })" style="background: var(--white); color: var(--green-800);">
-        ↑ Start the Calculator
+        &uarr; Start the Calculator
       </button>
     </div>
   </section>
@@ -420,7 +446,9 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <div class="footer-brand">⚡ Switch to Electric Vic</div>
+        <div class="footer-brand">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:inline;vertical-align:middle;margin-right:6px;"><path d="M13 2L4.5 13.5H11L9 22L19.5 10H13L13 2Z" fill="#2dd4bf" stroke="#2dd4bf" stroke-width="1.5" stroke-linejoin="round"/></svg>Switch to Electric Vic
+        </div>
         <p class="footer-desc">Helping Victorian homeowners and landlords navigate the electrification transition. Free tools, verified tradies, real savings.</p>
       </div>
       <div>
@@ -442,7 +470,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>Switch to Electric Vic is an independent service and is not affiliated with the Victorian Government. Information is provided for general guidance only and should not be considered legal or financial advice. © 2026 Switch to Electric Vic. All rights reserved.</p>
+      <p>Switch to Electric Vic is an independent service and is not affiliated with the Victorian Government. Information is provided for general guidance only and should not be considered legal or financial advice. &copy; 2026 Switch to Electric Vic. All rights reserved.</p>
     </div>
   </div>
 </footer>
