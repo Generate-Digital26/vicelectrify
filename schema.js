@@ -12,7 +12,7 @@ document.write(`<!-- JSON-LD: Organization -->
     "containedInPlace": { "@type": "Country", "name": "Australia" }
   }
 }
-<\/script>
+</script>
 
 <!-- JSON-LD: WebApplication (Calculator) -->
 <script type="application/ld+json">
@@ -42,7 +42,7 @@ document.write(`<!-- JSON-LD: Organization -->
     "name": "Switch to Electric Vic"
   }
 }
-<\/script>
+</script>
 
 <!-- JSON-LD: FAQPage -->
 <script type="application/ld+json">
@@ -79,7 +79,7 @@ document.write(`<!-- JSON-LD: Organization -->
       "name": "What is the MEES deadline for Victorian landlords?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Victorian rental properties must meet Minimum Energy Efficiency Standards (MEES) by 1 March 2027. However, advertising a non-compliant rental property has been a criminal offence since 25 November 2025, with penalties of up to 300 penalty units (approximately $57,693). Landlords should audit their rental properties and plan upgrades well before the deadline."
+        "text": "Victorian rental properties must meet Minimum Energy Efficiency Standards (MEES) by 1 March 2027. However, advertising a non-compliant rental property has been a criminal offence since 25 November 2025, with penalties of up to 300 penalty units (approximately $61,053). Landlords should audit their rental properties and plan upgrades well before the deadline."
       }
     },
     {
@@ -87,7 +87,7 @@ document.write(`<!-- JSON-LD: Organization -->
       "name": "What rebates are available for solar panels in Victoria?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Victorian homeowners can receive up to $1,400 from the Solar Victoria rebate (50% of system cost) plus a matching $1,400 interest-free loan repaid over 4 years. Federal STCs provide an additional discount of approximately $1,786 for a 6.6kW system in Melbourne. Combined, these can reduce the cost of a residential solar system by over $3,000. Household income must be under $210,000 and property value under $3 million to qualify."
+        "text": "Victorian homeowners can receive up to $1,400 from the Solar Victoria rebate (50% of system cost) plus a matching $1,400 interest-free loan repaid over 4 years. Federal STCs provide an additional discount of approximately $2,400 for a 6.6kW system in Melbourne (2026 rates). Combined, these can reduce the cost of a residential solar system by over $3,800. Household income must be under $210,000 and property value under $3 million to qualify."
       }
     },
     {
@@ -111,12 +111,12 @@ document.write(`<!-- JSON-LD: Organization -->
       "name": "What is the Victorian Energy Upgrades (VEU) program?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Victorian Energy Upgrades (VEU) program is a market-based state government scheme that provides upfront discounts on energy-efficient products and services. It covers heating/cooling, hot water (including heat pump discounts of $560–$630), draught sealing (up to $700), and ceiling insulation (launching early 2026). Discounts are applied automatically at point of sale by accredited installers. There is no income test — all Victorian households are eligible."
+        "text": "The Victorian Energy Upgrades (VEU) program is a market-based state government scheme that provides upfront discounts on energy-efficient products and services. It covers heating/cooling, hot water (including heat pump discounts of $560–$630), draught sealing (up to $700), and ceiling insulation (available from April 2026). Discounts are applied automatically at point of sale by accredited installers. There is no income test — all Victorian households are eligible."
       }
     }
   ]
 }
-<\/script>
+</script>
 
 <!-- JSON-LD: HowTo (Calculator Steps) -->
 <script type="application/ld+json">
@@ -149,6 +149,6 @@ document.write(`<!-- JSON-LD: Organization -->
     }
   ]
 }
-<\/script>
+</script>
 
 `);
