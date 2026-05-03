@@ -91,8 +91,35 @@ function app() {
           });
 
         if (error) throw error;
+
+        // Send emails via serverless function (report to user + notification to business)
+        try {
+          await fetch('/api/send-report', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: this.homeLead.name,
+              email: this.homeLead.email,
+              phone: this.homeLead.phone || null,
+              suburb: this.calc.suburb || null,
+              want_report: this.homeLead.wantReport,
+              want_quotes: this.homeLead.wantQuotes,
+              timeline: this.homeLead.timeline || null,
+              ownership_type: this.calc.ownership,
+              compliance_status: this.results.compliance,
+              recommended_upgrades: this.results.upgrades,
+              total_cost_gross: this.results.totalGross,
+              total_cost_net: this.results.totalNet,
+              total_rebates: this.results.totalRebate,
+              total_annual_saving: this.results.totalSaving,
+            }),
+          });
+        } catch (emailErr) {
+          console.error('Email send error (non-blocking):', emailErr);
+        }
+
         this.homeLeadSubmitted = true;
-        window.scrollTo({ top: document.getElementById('home-results').offsetTop, behavior: 'smooth' });
+        window.scrollTo({ top: document.getElementById('home-results')?.offsetTop || 0, behavior: 'smooth' });
       } catch (err) {
         console.error('Lead submission error:', err);
         this.submitError = 'Something went wrong. Please try again, or email us at hello@switchtoelectricvic.com.au.';
