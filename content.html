@@ -1,0 +1,399 @@
+<!-- ========== HOMEOWNER RULES ========== -->
+<template x-if="page === 'homeowner'">
+<div>
+  <div class="page-header">
+    <div class="container">
+      <div class="badge badge-green" style="margin-bottom:12px;">Updated May 2026</div>
+      <h1>Electrification Rules for Homeowners</h1>
+      <p>What Victoria's new regulations mean for owner-occupiers — and what you need to do.</p>
+    </div>
+  </div>
+  <div class="content-body">
+    <h2>What's Changed?</h2>
+    <p>Victoria has introduced landmark electrification regulations as part of the state's Gas Substitution Roadmap — a long-term plan to transition the state off natural gas. These rules affect new builds, renovations, and the replacement of existing gas appliances.</p>
+    <p>The Building Electrification Regulations were finalised in June 2025 and represent the most significant change to how Victorian homes use energy in decades.</p>
+
+    <h2>Key Rules for Homeowners</h2>
+
+    <h3>New Builds</h3>
+    <p>Gas connections are <strong>banned in all new residential buildings</strong>. If you're building a new home in Victoria, it must be all-electric from the start. This applies to building permits lodged after the regulations took effect.</p>
+
+    <h3>Existing Homes — End-of-Life Replacement</h3>
+    <p>For existing homeowners, the key rule is:</p>
+    <div class="callout callout-amber">
+      <div class="callout-icon">⚡</div>
+      <div>
+        <h4>Gas hot water must be replaced with electric at end-of-life</h4>
+        <p>When your gas hot water system breaks down or reaches the end of its working life, you must replace it with an electric alternative (typically a heat pump hot water system). You <strong>cannot</strong> install a new gas hot water system.</p>
+      </div>
+    </div>
+    <p><strong>Important:</strong> The Victorian Government initially proposed mandating heater replacement as well, but backed away from this in the final regulations. Owner-occupiers are <strong>not</strong> currently required to replace gas heaters at end-of-life — only hot water systems.</p>
+    <p>However, switching to a reverse-cycle air conditioner for heating is still strongly recommended for cost savings, as they are 3–5x more efficient than gas heaters.</p>
+
+    <h3>Gas Cooktops</h3>
+    <p>There is currently no requirement to replace gas cooktops. However, induction cooktops are increasingly popular and offer faster cooking, easier cleaning, and no indoor gas combustion. Many homeowners choose to switch voluntarily.</p>
+
+    <h2>Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">June 2025</div>
+        <div class="timeline-content">
+          <h4>Building Electrification Regulations Finalised</h4>
+          <p>Gas banned in new builds. End-of-life hot water replacement rules take effect.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Early 2026</div>
+        <div class="timeline-content">
+          <h4>Ceiling Insulation Added to VEU Program</h4>
+          <p>New rebates available for ceiling insulation through the Victorian Energy Upgrades program.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Ongoing</div>
+        <div class="timeline-content">
+          <h4>Gas Substitution Roadmap Continues</h4>
+          <p>Further regulations expected as Victoria progresses toward full electrification. Stay informed.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>What Should I Do?</h2>
+    <ol>
+      <li><strong>Know your hot water system's age.</strong> Gas hot water systems typically last 10–15 years. If yours is approaching that age, plan ahead for an electric replacement.</li>
+      <li><strong>Don't wait for it to fail.</strong> A planned replacement lets you choose the best system and access all available rebates, rather than making an emergency decision.</li>
+      <li><strong>Stack your rebates.</strong> You can combine Solar Victoria, VEU, and federal STC rebates to reduce the cost of a heat pump hot water system by up to $2,030.</li>
+      <li><strong>Consider going further.</strong> While not required, switching your heating and cooktop to electric can save $600–$1,000+ per year on energy bills.</li>
+    </ol>
+
+    <div style="text-align:center; margin-top:40px;">
+      <button class="btn btn-primary btn-lg" @click="page='calculator'; calcStep=1; calc.ownership='owner'; window.scrollTo(0,0)">Check My Home Free →</button>
+    </div>
+  </div>
+</div>
+</template>
+
+<!-- ========== LANDLORD RULES ========== -->
+<template x-if="page === 'landlord'">
+<div>
+  <div class="page-header">
+    <div class="container">
+      <div class="badge badge-red" style="margin-bottom:12px;">Urgent — Deadlines Approaching</div>
+      <h1>Electrification Rules for Landlords</h1>
+      <p>Stricter rules, tighter deadlines, and penalties that are already in force.</p>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="callout callout-red">
+      <div class="callout-icon">🚨</div>
+      <div>
+        <h4>Warning: Advertising Rules Already Active</h4>
+        <p>Since <strong>25 November 2025</strong>, advertising a rental property that doesn't meet minimum energy efficiency standards is a <strong>criminal offence</strong>. Penalties range from 60 to 300 penalty units.</p>
+      </div>
+    </div>
+
+    <h2>How Landlord Rules Differ from Homeowners</h2>
+    <p>Landlords face <strong>stricter requirements</strong> than owner-occupiers under Victoria's electrification regulations:</p>
+    <ul>
+      <li><strong>Both gas hot water AND gas heating</strong> must be replaced with electric alternatives when they reach end-of-life (owner-occupiers only need to replace hot water)</li>
+      <li><strong>Minimum Energy Efficiency Standards (MEES)</strong> apply to all rental properties from 1 March 2027</li>
+      <li><strong>Advertising compliance</strong> is already enforced — listing a non-compliant property is a criminal offence</li>
+      <li><strong>Penalties are significant</strong> — up to 300 penalty units for serious breaches</li>
+    </ul>
+
+    <h2>MEES — Minimum Energy Efficiency Standards</h2>
+    <p>The Residential Tenancies Amendment (Minimum Energy Efficiency Standards) Regulations 2025 requires all rental properties to meet specific energy efficiency benchmarks by <strong>1 March 2027</strong>.</p>
+    <p>Key requirements include adequate insulation, efficient heating and cooling, sealed windows and doors, and the transition away from gas appliances. The exact standards are designed to ensure tenants live in homes that are reasonably energy efficient.</p>
+
+    <h2>Timeline for Landlords</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">25 Nov 2025</div>
+        <div class="timeline-content">
+          <h4>Advertising Compliance In Force ⚠️</h4>
+          <p>Advertising a non-compliant rental property is now a criminal offence. Already active.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">June 2025</div>
+        <div class="timeline-content">
+          <h4>Building Electrification Regulations</h4>
+          <p>Gas heating AND hot water must be replaced with electric at end-of-life for rental properties.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">1 Mar 2027</div>
+        <div class="timeline-content">
+          <h4>Full MEES Compliance Deadline</h4>
+          <p>All rental properties must meet minimum energy efficiency standards. Non-compliance = penalties.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Penalties</h2>
+    <ul>
+      <li><strong>60 penalty units</strong> for standard breaches of MEES requirements</li>
+      <li><strong>300 penalty units</strong> for serious or repeated breaches</li>
+      <li>Criminal offence for advertising non-compliant properties</li>
+    </ul>
+    <p>A penalty unit in Victoria is currently $192.31 (2025–26), so 300 penalty units = approximately <strong>$57,693</strong>.</p>
+
+    <h2>Landlord-Specific Rebates</h2>
+    <div class="callout callout-green">
+      <div class="callout-icon">💰</div>
+      <div>
+        <h4>Solar for Rentals</h4>
+        <p>Up to <strong>$1,400 rebate + $1,400 interest-free loan</strong> per rental property for solar PV. Maximum 2 properties per financial year. Tenant must sign an agreement and co-contribution is capped at $14.58/month.</p>
+      </div>
+    </div>
+    <p>All VEU discounts and federal STCs apply equally to rental properties — there's no distinction between owner-occupied and rental for these rebates.</p>
+
+    <h2>What Should Landlords Do Now?</h2>
+    <ol>
+      <li><strong>Audit your rental properties immediately.</strong> Check heating, hot water, insulation, and draught sealing against MEES requirements.</li>
+      <li><strong>Check advertising compliance.</strong> Ensure any currently advertised properties meet the standards — this is already enforceable.</li>
+      <li><strong>Plan upgrades before March 2027.</strong> Don't leave compliance to the last minute — installer demand will spike near the deadline.</li>
+      <li><strong>Maximise rebates.</strong> Stack all available incentives to minimise your out-of-pocket costs. Use our calculator to see exactly what's available.</li>
+      <li><strong>Factor in rental yield.</strong> Energy-efficient properties command 3–5% higher rents and attract better tenants.</li>
+    </ol>
+
+    <div style="text-align:center; margin-top:40px;">
+      <button class="btn btn-primary btn-lg" @click="page='calculator'; calcStep=1; calc.ownership='landlord'; window.scrollTo(0,0)">Check My Rental Property →</button>
+    </div>
+  </div>
+</div>
+</template>
+
+<!-- ========== REBATES ========== -->
+<template x-if="page === 'rebates'">
+<div>
+  <div class="page-header">
+    <div class="container">
+      <h1>Rebates & Incentives Guide</h1>
+      <p>Every rebate, discount, and incentive available to Victorian homeowners and landlords — and how to stack them.</p>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="callout callout-green">
+      <div class="callout-icon">🔑</div>
+      <div>
+        <h4>The Power of Stacking</h4>
+        <p>Victorian homeowners can combine <strong>three different rebate programs</strong> on a single heat pump hot water system — reducing the cost by up to $2,030. Our calculator shows you exactly which rebates apply to your situation.</p>
+      </div>
+    </div>
+
+    <h2>Heat Pump Hot Water</h2>
+    <p>The single best upgrade for most Victorian homes. Three rebates stack on the same product:</p>
+    <div class="rebate-grid">
+      <div class="rebate-card">
+        <span class="amount">$1,000–$1,400</span>
+        <h3>Solar Victoria Rebate</h3>
+        <p>Up to $1,000 standard, or $1,400 for locally-made brands (Rheem, Dux, Rinnai, Thermann). Income cap: $210K combined household.</p>
+      </div>
+      <div class="rebate-card">
+        <span class="amount">$560–$630</span>
+        <h3>VEU Discount</h3>
+        <p>Applied automatically as an upfront price reduction by accredited installers through the Victorian Energy Upgrades program. No income test.</p>
+      </div>
+      <div class="rebate-card">
+        <span class="amount">$300–$600</span>
+        <h3>Federal STCs</h3>
+        <p>Small-scale Technology Certificates under the federal Renewable Energy Target. Applied as a point-of-sale discount. Active until 2030.</p>
+      </div>
+      <div class="rebate-card" style="border-color: var(--green-400); background: var(--green-50);">
+        <span class="amount">Up to $2,030</span>
+        <h3>Total Combined Savings</h3>
+        <p>On a locally-made heat pump hot water system. A $3,500 system could cost as little as $1,470 out of pocket.</p>
+      </div>
+    </div>
+
+    <h2>Solar PV</h2>
+    <div class="rebate-grid">
+      <div class="rebate-card">
+        <span class="amount">Up to $1,400</span>
+        <h3>Solar Victoria Rebate</h3>
+        <p>50% of system cost up to $1,400. Plus matching $1,400 interest-free loan (4-year repayment). Income cap: $210K. Property cap: $3M.</p>
+      </div>
+      <div class="rebate-card">
+        <span class="amount">~$1,786</span>
+        <h3>Federal STCs</h3>
+        <p>For a 6.6kW system in Melbourne. Deeming period reduces each year (5 years in 2026). Applied as point-of-sale discount.</p>
+      </div>
+    </div>
+
+    <h2>Batteries</h2>
+    <div class="rebate-grid">
+      <div class="rebate-card">
+        <span class="amount">~30% off</span>
+        <h3>Federal Cheaper Home Batteries</h3>
+        <p>From 1 July 2025. Approximately $372/kWh discount, capped at $18,500. Budget expanded to $7.2B in December 2025.</p>
+      </div>
+    </div>
+
+    <h2>Insulation & Draught Sealing</h2>
+    <div class="rebate-grid">
+      <div class="rebate-card">
+        <span class="amount">Up to $700</span>
+        <h3>Draught Sealing (VEU)</h3>
+        <p>Covers professional draught sealing with 5-year warranty products. Available now through accredited providers.</p>
+      </div>
+      <div class="rebate-card">
+        <span class="amount">Coming 2026</span>
+        <h3>Ceiling Insulation (VEU)</h3>
+        <p>New VEU activity launching in early 2026. ESC application forms released April 2026. Amount TBC.</p>
+      </div>
+    </div>
+
+    <h2>Landlord-Specific</h2>
+    <div class="rebate-grid">
+      <div class="rebate-card">
+        <span class="amount">$1,400 + $1,400</span>
+        <h3>Solar for Rentals</h3>
+        <p>Up to $1,400 rebate plus $1,400 interest-free loan per rental property. Max 2 properties per financial year. Tenant co-contribution capped at $14.58/month.</p>
+      </div>
+    </div>
+
+    <h2>Concession Holders</h2>
+    <div class="rebate-grid">
+      <div class="rebate-card">
+        <span class="amount">$100</span>
+        <h3>Power Saving Bonus</h3>
+        <p>One-off payment for Health Care Card, Pensioner Concession Card, or Veterans' Affairs card holders. Apply at compare.energy.vic.gov.au.</p>
+      </div>
+      <div class="rebate-card">
+        <span class="amount">17.5% off</span>
+        <h3>Ongoing Electricity Discount</h3>
+        <p>Year-round 17.5% discount on electricity bills and winter gas bills for concession card holders.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:40px;">
+      <button class="btn btn-primary btn-lg" @click="page='calculator'; calcStep=1; window.scrollTo(0,0)">See Which Rebates Apply to Me →</button>
+    </div>
+  </div>
+</div>
+</template>
+
+<!-- ========== ABOUT ========== -->
+<template x-if="page === 'about'">
+<div>
+  <div class="page-header">
+    <div class="container">
+      <h1>About Switch to Electric Vic</h1>
+      <p>Helping Victoria transition off gas — one home at a time.</p>
+    </div>
+  </div>
+  <div class="content-body">
+    <h2>Our Mission</h2>
+    <p>Victoria's transition away from gas is one of the most significant changes to how we power our homes in a generation. New regulations, rebate programs, and technology options can be overwhelming — and the stakes are high, especially for landlords facing compliance deadlines.</p>
+    <p>Switch to Electric Vic exists to make this transition simple. We help homeowners and landlords understand what they need to do, how much it'll cost, and connect them with qualified local businesses who can do the work.</p>
+
+    <h2>How Our Calculator Works</h2>
+    <p>Our compliance and cost calculator uses data from:</p>
+    <ul>
+      <li><strong>Victorian Government</strong> — Building Electrification Regulations, MEES requirements, Gas Substitution Roadmap</li>
+      <li><strong>Solar Victoria</strong> — Current rebate amounts and eligibility criteria</li>
+      <li><strong>Essential Services Commission</strong> — VEU program activities and discounts</li>
+      <li><strong>Clean Energy Regulator</strong> — Federal STC deeming periods and values</li>
+      <li><strong>Industry data</strong> — Average installation costs from our verified partner network</li>
+    </ul>
+    <p>Cost estimates are indicative and based on average Melbourne metropolitan pricing. Actual costs may vary based on your specific property, chosen products, and installer.</p>
+
+    <h2>Our Partner Network</h2>
+    <p>Every business on Switch to Electric Vic is verified before activation. We check:</p>
+    <ul>
+      <li>Valid ABN and business registration</li>
+      <li>Relevant trade licences (electrical, plumbing, building)</li>
+      <li>Public liability insurance</li>
+      <li>Accreditation with relevant programs (CEC for solar, VEU for energy upgrades)</li>
+    </ul>
+    <p>We limit each suburb zone to a maximum of 3 businesses per service type. This means our partners get quality leads with manageable competition, and homeowners get a curated shortlist — not a flood of cold calls.</p>
+
+    <h2>Contact</h2>
+    <p>Questions? Feedback? Partnership enquiries?</p>
+    <p>Email: <a href="mailto:hello@switchtoelectricvic.com.au">hello@switchtoelectricvic.com.au</a></p>
+
+    <div style="text-align:center; margin-top:40px;">
+      <button class="btn btn-primary btn-lg" @click="page='calculator'; calcStep=1; window.scrollTo(0,0)">Try the Free Calculator →</button>
+    </div>
+  </div>
+</div>
+</template>
+
+<!-- ========== PRIVACY POLICY ========== -->
+<template x-if="page === 'privacy'">
+<div>
+  <div class="page-header">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p>How we collect, use, and protect your personal information.</p>
+    </div>
+  </div>
+  <div class="content-body">
+    <p><strong>Last updated:</strong> May 2026</p>
+    <p>Switch to Electric Vic ("we", "us", "our") operates the website www.switchtoelectricvic.com.au. This Privacy Policy explains how we collect, use, disclose, and protect your personal information in accordance with the Australian Privacy Act 1988 (Cth) and the Australian Privacy Principles (APPs).</p>
+
+    <h2>1. Information We Collect</h2>
+    <p>We collect personal information that you voluntarily provide when using our calculator and lead capture forms. This may include:</p>
+    <ul>
+      <li><strong>Contact details:</strong> name, email address, phone number</li>
+      <li><strong>Property information:</strong> suburb or postcode, property type, property age, ownership status (homeowner or landlord)</li>
+      <li><strong>Energy setup details:</strong> current hot water system, heating type, cooktop type</li>
+      <li><strong>Calculator results:</strong> compliance status, recommended upgrades, estimated costs and savings</li>
+      <li><strong>Preferences:</strong> whether you requested a report, installer quotes, or both, and your project timeline</li>
+    </ul>
+    <p>We do not collect sensitive information such as financial details, health information, or government identifiers.</p>
+
+    <h2>2. How We Use Your Information</h2>
+    <p>We use your personal information for the following purposes:</p>
+    <ul>
+      <li><strong>Providing our service:</strong> generating your personalised compliance check and upgrade recommendations</li>
+      <li><strong>Sending reports:</strong> if you request an emailed report, we use your email address to deliver it</li>
+      <li><strong>Connecting you with installers:</strong> if you request quotes, we share your details with a <strong>maximum of 3 verified local businesses</strong> per service type in your area so they can contact you with quotes</li>
+      <li><strong>Improving our service:</strong> analysing aggregated, de-identified usage data to improve our calculator accuracy and user experience</li>
+    </ul>
+
+    <h2>3. How We Share Your Information</h2>
+    <p>We only share your personal information in the following circumstances:</p>
+    <ul>
+      <li><strong>With matched trade businesses:</strong> When you request installer quotes, your name, contact details, suburb, property information, and calculator results are shared with a maximum of 3 verified local businesses per service type. We never share your information with more than 3 businesses per service category.</li>
+      <li><strong>Service providers:</strong> We use Supabase (database hosting) and Resend (email delivery) to operate our service. These providers process data on our behalf under strict data protection agreements.</li>
+      <li><strong>Legal requirements:</strong> We may disclose your information if required by law, regulation, or legal process.</li>
+    </ul>
+    <p>We <strong>never</strong> sell your personal information to third parties. We do not share your data for advertising or marketing purposes beyond the specific service you requested.</p>
+
+    <h2>4. Data Storage and Security</h2>
+    <p>Your personal information is stored securely using Supabase, a cloud database platform with enterprise-grade security including:</p>
+    <ul>
+      <li>Encryption at rest and in transit (TLS/SSL)</li>
+      <li>Row-level security policies restricting data access</li>
+      <li>Regular security audits and compliance monitoring</li>
+    </ul>
+    <p>While we take reasonable steps to protect your information, no method of electronic transmission or storage is 100% secure. We cannot guarantee absolute security.</p>
+
+    <h2>5. Your Rights</h2>
+    <p>Under the Australian Privacy Principles, you have the right to:</p>
+    <ul>
+      <li><strong>Access:</strong> Request a copy of the personal information we hold about you</li>
+      <li><strong>Correction:</strong> Request correction of any inaccurate or outdated information</li>
+      <li><strong>Deletion:</strong> Request that we delete your personal information from our systems</li>
+      <li><strong>Complaint:</strong> Lodge a complaint about our handling of your personal information</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at the details below. We will respond to your request within 30 days.</p>
+
+    <h2>6. Cookies and Analytics</h2>
+    <p>Our website may use cookies and analytics tools to understand how visitors use the site. This data is aggregated and does not identify individual users. You can disable cookies in your browser settings at any time.</p>
+
+    <h2>7. Third-Party Links</h2>
+    <p>Our website may contain links to external sites (e.g., government rebate programs, Solar Victoria). We are not responsible for the privacy practices of these external sites and encourage you to review their privacy policies.</p>
+
+    <h2>8. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated "Last updated" date. We encourage you to review this page periodically.</p>
+
+    <h2>9. Contact Us</h2>
+    <p>If you have any questions about this Privacy Policy, wish to exercise your privacy rights, or want to make a complaint, please contact us:</p>
+    <p><strong>Email:</strong> <a href="mailto:hello@switchtoelectricvic.com.au">hello@switchtoelectricvic.com.au</a></p>
+    <p>If you are not satisfied with our response, you can lodge a complaint with the <a href="https://www.oaic.gov.au" target="_blank" rel="noopener noreferrer">Office of the Australian Information Commissioner (OAIC)</a>.</p>
+  </div>
+</div>
+</template>

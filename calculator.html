@@ -1,0 +1,395 @@
+<!-- ========== CALCULATOR ========== -->
+<template x-if="page === 'calculator'">
+<div>
+  <section class="section" style="background: var(--slate-50); min-height: 80vh;">
+    <div class="calc-wrapper">
+      <!-- Progress -->
+      <div class="calc-progress">
+        <template x-for="s in 6" :key="s">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="calc-step-dot" :class="{ active: calcStep === s, done: calcStep > s }" x-text="calcStep > s ? '✓' : s"></div>
+            <div class="calc-step-line" :class="{ done: calcStep > s }" x-show="s < 6"></div>
+          </div>
+        </template>
+      </div>
+
+      <!-- Step 1: Property Details -->
+      <div class="calc-card" x-show="calcStep === 1">
+        <h2>Your Property</h2>
+        <p class="subtitle">Tell us about your home so we can check the rules that apply to you.</p>
+
+        <div class="form-group">
+          <label class="form-label">I am a…</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.ownership === 'owner' }" @click="calc.ownership = 'owner'">Owner-Occupier</button>
+            <button class="option-pill" :class="{ selected: calc.ownership === 'landlord' }" @click="calc.ownership = 'landlord'">Landlord</button>
+            <button class="option-pill" :class="{ selected: calc.ownership === 'renter' }" @click="calc.ownership = 'renter'">Renter</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Property Type</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.propType === 'house' }" @click="calc.propType = 'house'">House</button>
+            <button class="option-pill" :class="{ selected: calc.propType === 'townhouse' }" @click="calc.propType = 'townhouse'">Townhouse</button>
+            <button class="option-pill" :class="{ selected: calc.propType === 'unit' }" @click="calc.propType = 'unit'">Unit / Apartment</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Approximate Age</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.propAge === 'pre1990' }" @click="calc.propAge = 'pre1990'">Pre-1990</button>
+            <button class="option-pill" :class="{ selected: calc.propAge === '1990-2010' }" @click="calc.propAge = '1990-2010'">1990–2010</button>
+            <button class="option-pill" :class="{ selected: calc.propAge === '2010-2020' }" @click="calc.propAge = '2010-2020'">2010–2020</button>
+            <button class="option-pill" :class="{ selected: calc.propAge === 'post2020' }" @click="calc.propAge = 'post2020'">Post-2020</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bedrooms</label>
+          <div class="option-group">
+            <template x-for="n in ['1','2','3','4','5+']" :key="n">
+              <button class="option-pill" :class="{ selected: calc.bedrooms === n }" @click="calc.bedrooms = n" x-text="n"></button>
+            </template>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Suburb or Postcode</label>
+          <input type="text" class="form-input" placeholder="e.g. Brunswick, 3056" x-model="calc.suburb">
+        </div>
+
+        <div class="calc-actions" style="justify-content: flex-end;">
+          <button class="btn btn-primary" @click="calcStep = 2; window.scrollTo(0,0)" :disabled="!calc.ownership || !calc.propType">
+            Next →
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Current Energy Setup -->
+      <div class="calc-card" x-show="calcStep === 2">
+        <h2>Your Energy Setup</h2>
+        <p class="subtitle">What systems does your home currently use? Select "Don't know" if unsure.</p>
+
+        <div class="form-group">
+          <label class="form-label">Hot Water System</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'gas_storage' }" @click="calc.hotWater = 'gas_storage'">Gas Storage</button>
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'gas_instant' }" @click="calc.hotWater = 'gas_instant'">Gas Instantaneous</button>
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'electric' }" @click="calc.hotWater = 'electric'">Electric Storage</button>
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'heat_pump' }" @click="calc.hotWater = 'heat_pump'">Heat Pump</button>
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'solar_hw' }" @click="calc.hotWater = 'solar_hw'">Solar</button>
+            <button class="option-pill" :class="{ selected: calc.hotWater === 'unknown' }" @click="calc.hotWater = 'unknown'">Don't Know</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Heating</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.heating === 'gas_ducted' }" @click="calc.heating = 'gas_ducted'">Gas Ducted</button>
+            <button class="option-pill" :class="{ selected: calc.heating === 'gas_wall' }" @click="calc.heating = 'gas_wall'">Gas Wall Heater</button>
+            <button class="option-pill" :class="{ selected: calc.heating === 'rc_ac' }" @click="calc.heating = 'rc_ac'">Reverse Cycle AC</button>
+            <button class="option-pill" :class="{ selected: calc.heating === 'electric_heater' }" @click="calc.heating = 'electric_heater'">Electric Heater</button>
+            <button class="option-pill" :class="{ selected: calc.heating === 'wood' }" @click="calc.heating = 'wood'">Wood</button>
+            <button class="option-pill" :class="{ selected: calc.heating === 'unknown' }" @click="calc.heating = 'unknown'">Don't Know</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cooktop</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.cooktop === 'gas' }" @click="calc.cooktop = 'gas'">Gas</button>
+            <button class="option-pill" :class="{ selected: calc.cooktop === 'electric' }" @click="calc.cooktop = 'electric'">Electric</button>
+            <button class="option-pill" :class="{ selected: calc.cooktop === 'induction' }" @click="calc.cooktop = 'induction'">Induction</button>
+            <button class="option-pill" :class="{ selected: calc.cooktop === 'unknown' }" @click="calc.cooktop = 'unknown'">Don't Know</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Solar Panels</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.solar === 'yes' }" @click="calc.solar = 'yes'">Yes</button>
+            <button class="option-pill" :class="{ selected: calc.solar === 'no' }" @click="calc.solar = 'no'">No</button>
+            <button class="option-pill" :class="{ selected: calc.solar === 'unknown' }" @click="calc.solar = 'unknown'">Don't Know</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Battery Storage</label>
+          <div class="option-group">
+            <button class="option-pill" :class="{ selected: calc.battery === 'yes' }" @click="calc.battery = 'yes'">Yes</button>
+            <button class="option-pill" :class="{ selected: calc.battery === 'no' }" @click="calc.battery = 'no'">No</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Approximate Quarterly Energy Bill</label>
+          <div class="range-wrap">
+            <div class="range-value" x-text="'$' + calc.bill"></div>
+            <input type="range" min="100" max="1500" step="50" x-model.number="calc.bill">
+            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--slate-500); margin-top:4px;">
+              <span>$100</span><span>$1,500+</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-actions">
+          <button class="btn btn-secondary" @click="calcStep = 1; window.scrollTo(0,0)">← Back</button>
+          <button class="btn btn-primary" @click="computeResults(); calcStep = 3; window.scrollTo(0,0)">See My Results →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Compliance Check -->
+      <div class="calc-card" x-show="calcStep === 3">
+        <h2>Compliance Check</h2>
+        <p class="subtitle">Here's where your property stands under Victoria's new electrification rules.</p>
+
+        <template x-if="results.compliance === 'compliant'">
+          <div class="compliance-status green">
+            <div class="compliance-icon">✅</div>
+            <div>
+              <h3>You're Compliant</h3>
+              <p>Your home meets the current electrification requirements. You may still benefit from upgrades to save money on energy bills — see the recommendations below.</p>
+            </div>
+          </div>
+        </template>
+        <template x-if="results.compliance === 'action_needed'">
+          <div class="compliance-status amber">
+            <div class="compliance-icon">⚠️</div>
+            <div>
+              <h3>Action Needed</h3>
+              <p x-text="results.complianceMsg"></p>
+            </div>
+          </div>
+        </template>
+        <template x-if="results.compliance === 'non_compliant'">
+          <div class="compliance-status red">
+            <div class="compliance-icon">❌</div>
+            <div>
+              <h3>Non-Compliant — Action Required</h3>
+              <p x-text="results.complianceMsg"></p>
+            </div>
+          </div>
+        </template>
+
+        <template x-if="calc.ownership === 'landlord'">
+          <div class="callout callout-red" style="margin-top:16px">
+            <div class="callout-icon">⚖️</div>
+            <div>
+              <h4>Landlord Alert: Advertising Rules Already in Force</h4>
+              <p>Since 25 November 2025, advertising a rental property that doesn't meet minimum energy efficiency standards is a <strong>criminal offence</strong> (up to 300 penalty units). The full MEES requirements take effect <strong>1 March 2027</strong>.</p>
+            </div>
+          </div>
+        </template>
+
+        <template x-if="results.items.length > 0">
+          <div style="margin-top: 24px;">
+            <h3 style="font-size:1.1rem; margin-bottom:12px;">Items Requiring Attention</h3>
+            <template x-for="item in results.items" :key="item.label">
+              <div style="display:flex; align-items:flex-start; gap:10px; padding:12px 0; border-bottom:1px solid var(--slate-100);">
+                <span x-text="item.urgent ? '🔴' : '🟡'" style="flex-shrink:0; margin-top:2px;"></span>
+                <div>
+                  <div style="font-weight:600; font-size:0.95rem; color:var(--slate-900);" x-text="item.label"></div>
+                  <div style="font-size:0.85rem; color:var(--slate-500);" x-text="item.desc"></div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+
+        <div class="calc-actions">
+          <button class="btn btn-secondary" @click="calcStep = 2; window.scrollTo(0,0)">← Back</button>
+          <button class="btn btn-primary" @click="calcStep = 4; window.scrollTo(0,0)">See Upgrade Recommendations →</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Recommended Upgrades -->
+      <div class="calc-card" x-show="calcStep === 4">
+        <h2>Recommended Upgrades</h2>
+        <p class="subtitle">Prioritised by compliance requirements, then return on investment.</p>
+
+        <template x-if="results.upgrades.length === 0">
+          <div class="callout callout-green">
+            <div class="callout-icon">🎉</div>
+            <div>
+              <h4>No upgrades needed!</h4>
+              <p>Your home is already well set up. You might consider solar or a battery to further reduce your bills.</p>
+            </div>
+          </div>
+        </template>
+
+        <template x-if="results.upgrades.length > 0">
+          <div class="table-wrap">
+            <table class="upgrade-table">
+              <thead>
+                <tr>
+                  <th>Upgrade</th>
+                  <th>Cost</th>
+                  <th>Rebates</th>
+                  <th>Net Cost</th>
+                  <th>Annual Saving</th>
+                  <th>Payback</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="u in results.upgrades" :key="u.name">
+                  <tr>
+                    <td>
+                      <div class="upgrade-name" x-text="u.name"></div>
+                      <div class="upgrade-desc" x-text="u.desc"></div>
+                      <template x-if="u.priority === 'compliance'">
+                        <span class="badge badge-red" style="margin-top:4px;">Compliance Required</span>
+                      </template>
+                    </td>
+                    <td><span class="cost-strike" x-text="'$' + u.gross.toLocaleString()"></span></td>
+                    <td style="color:var(--green-700); font-weight:600;" x-text="'-$' + u.rebate.toLocaleString()"></td>
+                    <td><span class="cost-net" x-text="'$' + u.net.toLocaleString()"></span></td>
+                    <td><span class="savings-val" x-text="'$' + u.saving.toLocaleString() + '/yr'"></span></td>
+                    <td x-text="u.payback + ' yrs'"></td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </template>
+
+        <div class="calc-actions">
+          <button class="btn btn-secondary" @click="calcStep = 3; window.scrollTo(0,0)">← Back</button>
+          <button class="btn btn-primary" @click="calcStep = 5; window.scrollTo(0,0)">See Summary →</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Summary -->
+      <div class="calc-card" x-show="calcStep === 5">
+        <h2>Your Electrification Summary</h2>
+        <p class="subtitle">Here's the full picture for your property.</p>
+
+        <div class="summary-totals">
+          <div class="summary-box">
+            <span class="num" x-text="'$' + results.totalGross.toLocaleString()"></span>
+            <span class="label">Total Upgrade Cost</span>
+          </div>
+          <div class="summary-box highlight">
+            <span class="num" x-text="'$' + results.totalNet.toLocaleString()"></span>
+            <span class="label">After Rebates</span>
+          </div>
+          <div class="summary-box highlight">
+            <span class="num" x-text="'$' + results.totalSaving.toLocaleString() + '/yr'"></span>
+            <span class="label">Annual Energy Savings</span>
+          </div>
+          <div class="summary-box">
+            <span class="num" x-text="results.totalPayback + ' yrs'"></span>
+            <span class="label">Overall Payback Period</span>
+          </div>
+        </div>
+
+        <div class="callout callout-green" style="margin-top:8px;">
+          <div class="callout-icon">💡</div>
+          <div>
+            <h4>Total Rebates Available</h4>
+            <p>You could access up to <strong x-text="'$' + results.totalRebate.toLocaleString()"></strong> in combined government rebates and incentives (Victorian + Federal schemes).</p>
+          </div>
+        </div>
+
+        <template x-if="calc.ownership === 'landlord'">
+          <div class="callout callout-amber">
+            <div class="callout-icon">📈</div>
+            <div>
+              <h4>Rental Yield Impact</h4>
+              <p>Energy-efficient rental properties can command 3–5% higher rents and attract better tenants. Completing these upgrades before the March 2027 MEES deadline protects your rental income and avoids penalties.</p>
+            </div>
+          </div>
+        </template>
+
+        <div class="calc-actions">
+          <button class="btn btn-secondary" @click="calcStep = 4; window.scrollTo(0,0)">← Back</button>
+          <button class="btn btn-primary btn-lg" @click="calcStep = 6; window.scrollTo(0,0)">Get Free Quotes →</button>
+        </div>
+      </div>
+
+      <!-- Step 6: Lead Capture -->
+      <div class="calc-card" x-show="calcStep === 6 && !leadSubmitted">
+        <h2>Get Free Quotes</h2>
+        <p class="subtitle">We'll connect you with up to 3 verified local installers who specialise in exactly what you need. No spam, no lead flooding.</p>
+
+        <div class="lead-form-section">
+          <h3>Your Details</h3>
+          <p class="form-subtitle">Shared only with matched local businesses — maximum 3 per service type.</p>
+
+          <div class="form-row" style="margin-bottom:16px;">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-input" placeholder="Jane Smith" x-model="lead.name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" placeholder="jane@example.com" x-model="lead.email">
+            </div>
+          </div>
+          <div class="form-row" style="margin-bottom:16px;">
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="tel" class="form-input" placeholder="04XX XXX XXX" x-model="lead.phone">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Preferred Contact</label>
+              <div class="option-group">
+                <button class="option-pill" :class="{ selected: lead.contactPref === 'phone' }" @click="lead.contactPref = 'phone'" style="font-size:0.85rem;">Phone</button>
+                <button class="option-pill" :class="{ selected: lead.contactPref === 'email' }" @click="lead.contactPref = 'email'" style="font-size:0.85rem;">Email</button>
+                <button class="option-pill" :class="{ selected: lead.contactPref === 'either' }" @click="lead.contactPref = 'either'" style="font-size:0.85rem;">Either</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Which upgrades are you interested in?</label>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <template x-for="u in results.upgrades" :key="u.name">
+                <label class="form-check">
+                  <input type="checkbox" :value="u.name" x-model="lead.upgrades">
+                  <span x-text="u.name"></span>
+                </label>
+              </template>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Timeline</label>
+            <div class="option-group">
+              <button class="option-pill" :class="{ selected: lead.timeline === 'now' }" @click="lead.timeline = 'now'" style="font-size:0.85rem;">Ready Now</button>
+              <button class="option-pill" :class="{ selected: lead.timeline === '3months' }" @click="lead.timeline = '3months'" style="font-size:0.85rem;">Within 3 Months</button>
+              <button class="option-pill" :class="{ selected: lead.timeline === '12months' }" @click="lead.timeline = '12months'" style="font-size:0.85rem;">Within 12 Months</button>
+              <button class="option-pill" :class="{ selected: lead.timeline === 'research' }" @click="lead.timeline = 'research'" style="font-size:0.85rem;">Just Researching</button>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-lg btn-block" @click="submitCalcLead()" :disabled="!lead.name || !lead.email || !lead.phone || submitting">
+            <span x-show="!submitting">Submit — Get Up to 3 Free Quotes</span>
+            <span x-show="submitting">Submitting…</span>
+          </button>
+          <p x-show="submitError" style="color:var(--red-600); font-size:0.9rem; margin-top:8px; text-align:center;" x-text="submitError"></p>
+          <p class="privacy-note">🔒 <strong>Your privacy matters.</strong> Your details are shared with a maximum of 3 matched local businesses per service type — never sold, never spammed. See our <a href="#" @click.prevent="page='privacy'; window.scrollTo(0,0)">privacy policy</a>.</p>
+        </div>
+
+        <div class="calc-actions" style="margin-top:24px;">
+          <button class="btn btn-secondary" @click="calcStep = 5; window.scrollTo(0,0)">← Back</button>
+        </div>
+      </div>
+
+      <!-- Success -->
+      <div class="calc-card" x-show="calcStep === 6 && leadSubmitted">
+        <div class="success-card">
+          <div class="success-icon">🎉</div>
+          <h2>You're All Set!</h2>
+          <p>Your details have been sent to up to 3 verified local installers in your area. Expect to hear back within 48 hours.</p>
+          <div style="background:var(--slate-50); border-radius:var(--radius-sm); padding:20px; margin:24px auto; max-width:400px; text-align:left;">
+            <div style="font-weight:600; margin-bottom:8px;">What happens next:</div>
+            <div style="font-size:0.9rem; color:var(--slate-500);">
+              <div style="padding:6px 0;">1. Up to 3 matched installers will contact you</div>
+              <div style="padding:6px 0;">2. Compare their quotes and ask questions</div>
+              <div style="padding:6px 0;">3. Choose the best fit and schedule your upgrade</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <button class="btn btn-primary" @click="page='rebates'; window.scrollTo(0,0)">Explore All Rebates</button>
+            <button class="btn btn-secondary" @click="page='home'; window.scrollTo(0,0)">Back to Home</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+</template>
