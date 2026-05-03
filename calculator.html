@@ -16,7 +16,7 @@
       <!-- Step 1: Property Details -->
       <div class="calc-card" x-show="calcStep === 1">
         <h2>Your Property</h2>
-        <p class="subtitle">Tell us about your home so we can check the rules that apply to you.</p>
+        <p class="subtitle">Tell us about your property so we can check the rules that apply to you.</p>
 
         <div class="form-group">
           <label class="form-label">I am a…</label>
@@ -66,7 +66,7 @@
       <!-- Step 2: Current Energy Setup -->
       <div class="calc-card" x-show="calcStep === 2">
         <h2>Your Energy Setup</h2>
-        <p class="subtitle">What systems does your home currently use? Select "Don't know" if unsure.</p>
+        <p class="subtitle">What systems does your property currently use? Select "Don't know" if unsure.</p>
 
         <div class="form-group">
           <label class="form-label">Hot Water System</label>
@@ -138,16 +138,16 @@
 
         <template x-if="results.compliance === 'compliant'">
           <div class="compliance-status green">
-            <div class="compliance-icon">✅</div>
+            <div class="compliance-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/><path d="M9 14l3.5 3.5L19 11" stroke="#0f766e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div>
               <h3>You're Compliant</h3>
-              <p>Your home meets the current electrification requirements. You may still benefit from upgrades to save money on energy bills — see the recommendations below.</p>
+              <p>Your property meets the current electrification requirements. You may still benefit from upgrades to save money on energy bills — see the recommendations below.</p>
             </div>
           </div>
         </template>
         <template x-if="results.compliance === 'action_needed'">
           <div class="compliance-status amber">
-            <div class="compliance-icon">⚠️</div>
+            <div class="compliance-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3L2 25h24L14 3z" fill="#fffbeb" stroke="#d97706" stroke-width="2" stroke-linejoin="round"/><path d="M14 11v6M14 20v1" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/></svg></div>
             <div>
               <h3>Action Needed</h3>
               <p x-text="results.complianceMsg"></p>
@@ -156,7 +156,7 @@
         </template>
         <template x-if="results.compliance === 'non_compliant'">
           <div class="compliance-status red">
-            <div class="compliance-icon">❌</div>
+            <div class="compliance-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/><path d="M10 10l8 8M18 10l-8 8" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/></svg></div>
             <div>
               <h3>Non-Compliant — Action Required</h3>
               <p x-text="results.complianceMsg"></p>
@@ -166,7 +166,7 @@
 
         <template x-if="calc.ownership === 'landlord'">
           <div class="callout callout-red" style="margin-top:16px">
-            <div class="callout-icon">⚖️</div>
+            <div class="callout-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2v16M4 6l6-2 6 2M4 6l-2 6h4M16 6l2 6h-4" stroke="#0f766e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div>
               <h4>Landlord Alert: Advertising Rules Already in Force</h4>
               <p>Since 25 November 2025, advertising a rental property that doesn't meet minimum energy efficiency standards is a <strong>criminal offence</strong> (up to 300 penalty units). The full MEES requirements take effect <strong>1 March 2027</strong>.</p>
@@ -179,7 +179,7 @@
             <h3 style="font-size:1.1rem; margin-bottom:12px;">Items Requiring Attention</h3>
             <template x-for="item in results.items" :key="item.label">
               <div style="display:flex; align-items:flex-start; gap:10px; padding:12px 0; border-bottom:1px solid var(--slate-100);">
-                <span x-text="item.urgent ? '🔴' : '🟡'" style="flex-shrink:0; margin-top:2px;"></span>
+                <div :style="item.urgent ? 'width:10px;height:10px;border-radius:50%;background:#dc2626;flex-shrink:0;margin-top:5px;' : 'width:10px;height:10px;border-radius:50%;background:#d97706;flex-shrink:0;margin-top:5px;'"></div>
                 <div>
                   <div style="font-weight:600; font-size:0.95rem; color:var(--slate-900);" x-text="item.label"></div>
                   <div style="font-size:0.85rem; color:var(--slate-500);" x-text="item.desc"></div>
@@ -202,10 +202,10 @@
 
         <template x-if="results.upgrades.length === 0">
           <div class="callout callout-green">
-            <div class="callout-icon">🎉</div>
+            <div class="callout-icon"><svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#f0fdfa" stroke="#0f766e" stroke-width="3"/><path d="M18 28l7 7L38 21" stroke="#0f766e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div>
               <h4>No upgrades needed!</h4>
-              <p>Your home is already well set up. You might consider solar or a battery to further reduce your bills.</p>
+              <p>Your property is already well set up. You might consider solar or a battery to further reduce your bills.</p>
             </div>
           </div>
         </template>
@@ -276,7 +276,7 @@
         </div>
 
         <div class="callout callout-green" style="margin-top:8px;">
-          <div class="callout-icon">💡</div>
+          <div class="callout-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M8 16h4M9 18h2M10 2a6 6 0 00-3 11.2V15h6v-1.8A6 6 0 0010 2z" stroke="#0f766e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
             <h4>Total Rebates Available</h4>
             <p>You could access up to <strong x-text="'$' + results.totalRebate.toLocaleString()"></strong> in combined government rebates and incentives (Victorian + Federal schemes).</p>
@@ -285,7 +285,7 @@
 
         <template x-if="calc.ownership === 'landlord'">
           <div class="callout callout-amber">
-            <div class="callout-icon">📈</div>
+            <div class="callout-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 17l5-5 3 3 6-8" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 7h4v4" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div>
               <h4>Rental Yield Impact</h4>
               <p>Energy-efficient rental properties can command 3–5% higher rents and attract better tenants. Completing these upgrades before the March 2027 MEES deadline protects your rental income and avoids penalties.</p>
@@ -360,7 +360,7 @@
             <span x-show="submitting">Submitting…</span>
           </button>
           <p x-show="submitError" style="color:var(--red-600); font-size:0.9rem; margin-top:8px; text-align:center;" x-text="submitError"></p>
-          <p class="privacy-note">🔒 <strong>Your privacy matters.</strong> Your details are shared with a maximum of 3 matched local businesses per service type — never sold, never spammed. See our <a href="#" @click.prevent="page='privacy'; window.scrollTo(0,0)">privacy policy</a>.</p>
+          <p class="privacy-note"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="display:inline;vertical-align:middle;margin-right:3px;"><rect x="2" y="6" width="10" height="7" rx="1.5" stroke="#64748b" stroke-width="1.2"/><path d="M4.5 6V4.5a2.5 2.5 0 015 0V6" stroke="#64748b" stroke-width="1.2"/></svg><strong>Your privacy matters.</strong> Your details are shared with a maximum of 3 matched local businesses per service type — never sold, never spammed. See our <a href="#" @click.prevent="page='privacy'; window.scrollTo(0,0)">privacy policy</a>.</p>
         </div>
 
         <div class="calc-actions" style="margin-top:24px;">
@@ -371,7 +371,7 @@
       <!-- Success -->
       <div class="calc-card" x-show="calcStep === 6 && leadSubmitted">
         <div class="success-card">
-          <div class="success-icon">🎉</div>
+          <div class="success-icon"><svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="26" fill="#f0fdfa" stroke="#0f766e" stroke-width="3"/><path d="M18 28l7 7L38 21" stroke="#0f766e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <h2>You're All Set!</h2>
           <p>Your details have been sent to up to 3 verified local installers in your area. Expect to hear back within 48 hours.</p>
           <div style="background:var(--slate-50); border-radius:var(--radius-sm); padding:20px; margin:24px auto; max-width:400px; text-align:left;">
